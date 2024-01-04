@@ -1,0 +1,110 @@
+@font-face {
+  font-family: "fortuneCookie";
+  src: url("/font/ExplorerFree-Regular.woff") format("woff");
+}
+
+* {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  --gradient: linear-gradient(90deg, #ee6352, purple, #ee6352);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.125em;
+  line-height: 1.6;
+  color: #333;
+  background: #ddd;
+  background-size: 300%;
+  background-image: var(--gradient);
+  animation: bg-animation 25s infinite;
+}
+
+@keyframes bg-animation {
+  0% {
+    background-position: left;
+  }
+  50% {
+    background-position: right;
+  }
+  100% {
+    background-position: left;
+  }
+}
+
+.title {
+  font-family: "fortuneCookie";
+  font-weight: 200;
+  height: 3rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 80px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.phrase {
+  min-width: 10rem;
+  min-height: 10rem;
+}
+
+#fortune-text {
+  height: 3rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  font-style: italic;
+  /*     border: #0a41f6 1px solid; */
+  padding-bottom: 10rem;
+}
+
+button.generate-phrase {
+  font-family: 'Futura Md BT';
+  font-weight: 700;
+  padding: 10px; /* Reducir el relleno */
+  border: 7px solid white; /* Establecer un borde transparente */
+  background: rgba(255, 255, 255, 0);
+  color: white;
+  border-radius: 10px; /* Redondear los bordes */
+  transition: 200ms ease-in;
+  user-select: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-sizing: border-box; /* Cambiar el modelo de caja */
+}
+
+button.generate-phrase:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+button.generate-phrase:active {
+  background: rgba(255, 255, 255, 0.6);
+  transform: translateY(10px);
+}
+
+button.generate-phrase:focus {
+  outline: 0;
+}
+
+@keyframes shake {
+  20% {
+    transform: rotate(-5deg);
+  }
+
+  40% {
+    transform: rotate(5deg);
+  }
+
+  60% {
+    transform: rotate(-2deg);
+  }
+
+  70% {
+    transform: rotate(2deg);
+  }
+}
