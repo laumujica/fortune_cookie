@@ -1,4 +1,7 @@
 # fortune_cookie
+
+![Banner](/img/Banner.jpg)
+
 **Project Title: Fortune Cookie**
 
 **Slogan:** "Find Your Spark. Click for Today's Fortune."
