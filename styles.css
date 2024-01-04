@@ -3,6 +3,11 @@
   src: url("font/ExplorerFree-Regular.woff");
 }
 
+@font-face {
+  font-family: "futura";
+  src: url("font/FuturaBoldBT.woff");
+}
+
 * {
   font-family: sans-serif;
   margin: 0;
@@ -63,8 +68,11 @@ body {
   padding-bottom: 10rem;
 }
 
+.generate-phrase {
+  font-family: "futura";
+}
+
 button.generate-phrase {
-  font-family: 'Futura Md BT';
   font-weight: 700;
   padding: 10px; /* Reducir el relleno */
   border: 7px solid white; /* Establecer un borde transparente */
