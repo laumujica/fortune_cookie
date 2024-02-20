@@ -24,11 +24,11 @@ With a focus on delivering a positive experience, the platform aims to uplift us
 **Status:**
 The project is currently in the UI development phase, focusing on creating an engaging and intuitive user interface to deliver the envisioned experience effectively.
 
-![Interface design](/img/Fortune-cookie-ui_v1.jpg)
+![Interface design](/img/Fortune-cookie-ui_borrador.jpg)
 
 
 ---
 ![Interface design](/img/VS.png)
 
 ---
-**01.04.2024**
+**02.20.2024**
