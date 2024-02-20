@@ -165,3 +165,4 @@ function generateRandomFortune() {
 
 // Add event listener to the button
 generateButton.addEventListener('click', generateRandomFortune);
+
