@@ -1,0 +1,312 @@
+@font-face {
+  font-family: "fortuneCookie";
+  src: url("font/ExplorerFree-Regular.woff");
+}
+
+@font-face {
+  font-family: "futura";
+  src: url("font/FuturaBoldBT.woff");
+}
+
+* {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  --gradient: linear-gradient(90deg, #ee6352, purple, #ee6352);
+}
+
+*::selection {
+  color: #ffc83d;
+}
+
+html {
+  --bg-color: #242038d7;
+  --primary-color: #47126b;
+  --secondary-color: #6d23b6;
+  --hover-color: #ac46a1;
+  --light-color: #ea698b;
+  --white-color: #ffffff;
+  --high-color: #ffed6c;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.125em;
+  color: #333;
+  background: #ddd;
+  background-size: 300%;
+  background-image: var(--gradient);
+  animation: bg-animation 40s infinite;
+}
+
+@keyframes bg-animation {
+  0% {
+    background-position: left;
+  }
+  50% {
+    background-position: right;
+  }
+  100% {
+    background-position: left;
+  }
+}
+
+.intro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.cat > img {
+  width: 200px;
+}
+
+.title {
+  font-family: "fortuneCookie";
+  font-weight: 200;
+  height: 3rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.slogan {
+  font-size: 16px;
+  color: var(--high-color);
+  text-align: center;
+}
+
+.phrase {
+  margin-top: 80px;
+  min-width: 8rem;
+  min-height: 8rem;
+  text-align: center;
+}
+
+#fortune-text {
+  height: 3rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-style: italic;
+  padding-bottom: 5rem;
+}
+
+.generate-phrase {
+  font-family: "futura";
+}
+
+button.generate-phrase {
+  font-weight: 700;
+  padding: 10px;
+  border: 7px solid white;
+  background: rgba(255, 255, 255, 0);
+  color: white;
+  border-radius: 10px;
+  transition: 200ms ease-in;
+  user-select: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+button.generate-phrase:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+button.generate-phrase:active {
+  background: rgba(255, 255, 255, 0.6);
+  transform: translateY(10px);
+}
+
+button.generate-phrase:focus {
+  outline: 0;
+}
+
+@keyframes shake {
+  20% {
+    transform: rotate(-5deg);
+  }
+  40% {
+    transform: rotate(5deg);
+  }
+  60% {
+    transform: rotate(-2deg);
+  }
+  70% {
+    transform: rotate(2deg);
+  }
+}
+
+/* CSS de ongoing */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  border-radius: 20px;
+  margin-top: 30px;
+}
+
+h1 {
+  margin: 0;
+}
+
+.fortune-p {
+  margin-bottom: 20px;
+}
+
+main {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+}
+
+main ol {
+  padding-left: 20px;
+}
+
+main ol p {
+  max-width: calc(100% - 40px);
+}
+
+.fortune-li ul li {
+  margin-left: 20px;
+}
+
+section {
+  margin-bottom: 30px;
+}
+
+h2 {
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.button-container {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  padding: 1rem 5% 3rem 0;
+  width: 100%;
+  font-weight: 900;
+}
+
+.button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: var(--white-color);
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  padding: 12px 18px;
+  cursor: pointer;
+  letter-spacing: 0.05rem;
+  font-weight: 600;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  z-index: -1;
+  transform: translateX(calc(100% + 3.2rem)) translateY(-50%);
+  width: 45px;
+  height: 45px;
+  background: #333;
+  border-radius: 50px;
+  transition: transform 0.25s 0.25s cubic-bezier(0, 0, 0.5, 2), width 0.25s cubic-bezier(0, 0, 0.5, 2);
+}
+
+.button:hover::before {
+  width: 100%;
+  transform: translateX(-18px) translateY(-50%);
+  transition: transform 0.25s cubic-bezier(0, 0, 0.5, 2), width 0.25s 0.25s cubic-bezier(0, 0, 0.5, 2);
+}
+
+.button i {
+  margin-left: 5px;
+  transition: transform 0.25s 0.4s cubic-bezier(0, 0, 0.5, 2);
+}
+
+.button:hover i {
+  transform: translateX(3px);
+}
+
+.button:active {
+  scale: 1.1;
+}
+
+.button-container a {
+  text-decoration: none;
+}
+
+/* ! Estilos responsive */
+@media screen and (max-width: 768px) {
+  header {
+    padding: 10px;
+    background-color: #333;
+    border-radius: 20px;
+  }
+
+  main {
+    padding: 10px;
+  }
+
+  #future-designs {
+    padding: 10px;
+    border-radius: 0;
+  }
+
+  main ol {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .phrase {
+    margin-top: 50px;
+    min-height: 8rem;
+    min-width: 8rem;
+    /* border: #ffc83d solid 1px; */
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .cat > img {
+    width: 170px;
+  }
+
+  #fortune-text {
+    height: auto;
+    padding-bottom: 5rem;
+    line-height: 0.5;
+  }
+
+  .slogan {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  button.generate-phrase {
+    font-size: 1rem;
+    padding: 8px;
+    border: 5px solid white;
+  }
+}
+
+.gif-container img {
+  margin-top: 10px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
