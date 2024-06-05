@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @font-face {
   font-family: "fortuneCookie";
   src: url("font/ExplorerFree-Regular.woff");
@@ -310,3 +311,288 @@ h2 {
   height: auto;
   border-radius: 5px;
 }
+=======
+@font-face {
+  font-family: "fortuneCookie";
+  src: url("font/ExplorerFree-Regular.woff");
+}
+
+@font-face {
+  font-family: "futura";
+  src: url("font/FuturaBoldBT.woff");
+}
+
+* {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* --gradient: linear-gradient(90deg, #ee6352, purple, #ee6352); */
+  --gradient: linear-gradient(90deg, #888, #555, #888);
+  /*   --gradient: linear-gradient(90deg, #bbb, #777, #bbb); */
+  /* --gradient: linear-gradient(90deg, #ee6352, purple, #ee6352);
+filter: grayscale(100%); */
+}
+
+*::selection {
+  color: #ffc83d;
+}
+
+html {
+  --bg-color: #242038d7;
+  --primary-color: #47126b;
+  --secondary-color: #6d23b6;
+  --hover-color: #ac46a1;
+  --light-color: #ea698b;
+  --white-color: #ffffff;
+  --high-color: #ffed6c;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.125em;
+  line-height: 1.6;
+  color: #333;
+  background: #ddd;
+  background-size: 300%;
+  background-image: var(--gradient);
+  animation: bg-animation 25s infinite;
+}
+
+@keyframes bg-animation {
+  0% {
+    background-position: left;
+  }
+  50% {
+    background-position: right;
+  }
+  100% {
+    background-position: left;
+  }
+}
+
+.title {
+  font-family: "fortuneCookie";
+  font-weight: 200;
+  height: 3rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.slogan {
+  font-size: 16px;
+}
+
+.phrase {
+  margin-top: 80px;
+  min-width: 10rem;
+  min-height: 10rem;
+}
+
+#fortune-text {
+  height: 3rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  font-style: italic;
+  /*     border: #0a41f6 1px solid; */
+  padding-bottom: 10rem;
+}
+
+.generate-phrase {
+  font-family: "futura";
+}
+
+button.generate-phrase {
+  font-weight: 700;
+  padding: 10px; /* Reducir el relleno */
+  border: 7px solid white; /* Establecer un borde transparente */
+  background: rgba(255, 255, 255, 0);
+  color: white;
+  border-radius: 10px; /* Redondear los bordes */
+  transition: 200ms ease-in;
+  user-select: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-sizing: border-box; /* Cambiar el modelo de caja */
+}
+
+button.generate-phrase:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+button.generate-phrase:active {
+  background: rgba(255, 255, 255, 0.6);
+  transform: translateY(10px);
+}
+
+button.generate-phrase:focus {
+  outline: 0;
+}
+
+@keyframes shake {
+  20% {
+    transform: rotate(-5deg);
+  }
+
+  40% {
+    transform: rotate(5deg);
+  }
+
+  60% {
+    transform: rotate(-2deg);
+  }
+
+  70% {
+    transform: rotate(2deg);
+  }
+}
+
+/* CSS de ongoing */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  border-radius: 20px;
+  margin-top: 30px;
+}
+
+h1 {
+  margin: 0;
+}
+
+.fortune-p {
+  margin-bottom: 20px;
+}
+
+main {
+  max-width: 800px; /* Ancho máximo para la caja */
+  margin: 20px auto; /* Centrar horizontalmente */
+  padding: 20px; /* Espaciado interno */
+  background-color: #f7f7f7; /* Color de fondo */
+  border-radius: 10px; /* Bordes redondeados */
+}
+
+main ol {
+  padding-left: 20px; /* Agrega un espacio al borde izquierdo */
+}
+
+main ol p {
+  max-width: calc(
+    100% - 40px
+  ); /* Limita el ancho del texto para que no se extienda más allá de 40px del ancho total del contenedor ol */
+}
+
+.fortune-li ul li {
+  margin-left: 20px;
+}
+
+section {
+  margin-bottom: 30px;
+}
+
+h2 {
+  /* border-bottom: 2px solid #333; */
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* Button Contact Me */
+.button-container {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  padding: 1rem 5% 3rem 0;
+  width: 100%;
+  /*     border: 1px solid yellow; */
+  font-weight: 900;
+}
+
+.button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: var(--white-color);
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  padding: 12px 18px;
+  cursor: pointer;
+  letter-spacing: 0.05rem;
+  font-weight: 600;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  z-index: -1;
+  transform: translateX(calc(100% + 3.2rem)) translateY(-50%);
+  width: 45px;
+  height: 45px;
+  background: #333;
+  border-radius: 50px;
+  transition: transform 0.25s 0.25s cubic-bezier(0, 0, 0.5, 2),
+    width 0.25s cubic-bezier(0, 0, 0.5, 2);
+}
+
+.button:hover::before {
+  width: 100%;
+  transform: translateX(-18px) translateY(-50%);
+  transition: transform 0.25s cubic-bezier(0, 0, 0.5, 2),
+    width 0.25s 0.25s cubic-bezier(0, 0, 0.5, 2);
+}
+
+.button i {
+  margin-left: 5px;
+  transition: transform 0.25s 0.4s cubic-bezier(0, 0, 0.5, 2);
+}
+
+.button:hover i {
+  transform: translateX(3px);
+}
+
+.button:active {
+  scale: 1.1;
+}
+
+.button-container a {
+  text-decoration: none;
+}
+
+
+/* ! Estilos responsive */
+@media screen and (max-width: 768px) {
+  header {
+    padding: 10px;
+    background-color: #333;
+    border-radius: 20px;
+  }
+
+  main {
+    padding: 10px;
+  }
+  #future-designs {
+    padding: 10px;
+    border-radius: 0; /* Quitar bordes redondeados en dispositivos móviles */
+  }
+
+  main ol {
+    list-style-type: none; /* Quita los estilos de la lista */
+    padding-left: 0; /* Elimina el espacio al borde izquierdo */
+  }
+}
+.gif-container img {
+  margin-top: 10px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+>>>>>>> 6f3f1c6a005b4848ec4583f9353019a812c37372
