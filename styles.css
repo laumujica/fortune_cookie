@@ -151,7 +151,7 @@ button.generate-phrase:focus {
   width: 50px; /* Ajusta el tamaño de la imagen según sea necesario */
   height: 50px;
   opacity: 1;
-  animation: fadeOut 2s forwards;
+  animation: fadeOut 3s forwards;
   pointer-events: none;
 }
 
