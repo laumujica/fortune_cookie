@@ -42,6 +42,7 @@ body {
   background-size: 300%;
   background-image: var(--gradient);
   animation: bg-animation 40s infinite;
+  overflow: hidden;
 }
 
 @keyframes bg-animation {
@@ -143,6 +144,27 @@ button.generate-phrase:focus {
     transform: rotate(2deg);
   }
 }
+
+/* Estilo para las imágenes de sparks */
+.spark {
+  position: absolute;
+  width: 50px; /* Ajusta el tamaño de la imagen según sea necesario */
+  height: 50px;
+  opacity: 1;
+  animation: fadeOut 2s forwards;
+  pointer-events: none;
+}
+
+/* Animación de desvanecimiento */
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 
 /* CSS de ongoing */
 header {
