@@ -43,6 +43,8 @@ body {
   background-image: var(--gradient);
   animation: bg-animation 40s infinite;
   overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes bg-animation {
@@ -169,6 +171,7 @@ button.generate-phrase:focus {
   opacity: 1;
   animation: fadeOut 5000ms forwards;
   pointer-events: none;
+  z-index: 0;
 }
 
 /* Animación de desvanecimiento */
@@ -177,7 +180,7 @@ button.generate-phrase:focus {
     opacity: 1;
   }
   70% {
-    opacity: 0.7;
+    opacity: 0.5;
   }
   100% {
     opacity: 0;
