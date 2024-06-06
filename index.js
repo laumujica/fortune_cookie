@@ -155,6 +155,8 @@ const fortuneMessages = [
 // Obtener el botón y el elemento de texto de la fortuna
 const generateButton = document.querySelector('.generate-phrase');
 const fortuneText = document.getElementById('fortune-text');
+const modal = document.getElementById('fortuneModal');
+const closeModal = document.querySelector('.close');
 
 // Función para generar y mostrar una fortuna aleatoria
 function generateRandomFortune() {
@@ -171,7 +173,7 @@ function showSparks() {
     const buttonRect = generateButton.getBoundingClientRect(); // Obtener la posición del botón
     const bodyRect = document.body.getBoundingClientRect(); // Obtener los límites del body
 
-    for (let i = 0; i < 40; i++) { // Ajusta el número de sparks según sea necesario
+    for (let i = 0; i < 50; i++) { // Ajusta el número de sparks según sea necesario
         const spark = document.createElement('img');
         spark.src = 'img/spark2.png'; // Reemplaza con la ruta correcta de tu imagen de spark
         spark.classList.add('spark');
@@ -207,5 +209,46 @@ function showSparks() {
     }
 }
 
+// Función para comprobar si la galleta de la fortuna ya fue abierta hoy
+function checkFortuneOpenedToday() {
+    const lastOpened = localStorage.getItem('fortuneLastOpened');
+    if (!lastOpened) {
+        return false;
+    }
+
+    const lastOpenedDate = new Date(lastOpened);
+    const today = new Date();
+
+    return lastOpenedDate.toDateString() === today.toDateString();
+}
+
+// Función para registrar la fecha de apertura de la galleta de la fortuna
+function setFortuneOpenedToday() {
+    const today = new Date();
+    localStorage.setItem('fortuneLastOpened', today.toString());
+}
+
+// Función para manejar el clic en el botón
+function handleButtonClick() {
+    if (checkFortuneOpenedToday()) {
+        modal.style.display = 'block';
+    } else {
+        generateRandomFortune();
+        setFortuneOpenedToday();
+    }
+}
+
 // Añadir un evento de escucha al botón
-generateButton.addEventListener('click', generateRandomFortune);
+generateButton.addEventListener('click', handleButtonClick);
+
+// Función para cerrar el modal
+closeModal.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
+
+// Cerrar el modal si se hace clic fuera de él
+window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
