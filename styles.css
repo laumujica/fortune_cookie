@@ -176,9 +176,8 @@ button.generate-phrase:focus {
   height: 100%; /* Full height */
   overflow: hidden; /* Disable scroll */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-/*   display: flex;
   justify-content: center;
-  align-items: center; */
+  align-items: center;
 }
 
 .modal-content {
