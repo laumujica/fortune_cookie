@@ -193,15 +193,23 @@ function getLastRevealedFortune() {
 
 // Función para manejar el clic en el botón
 function handleButtonClick() {
-    if (checkFortuneOpenedToday()) {
-        const lastFortune = getLastRevealedFortune();
-        fortuneText.textContent = lastFortune;
-        modal.style.display = 'flex';
-    } else {
-        generateRandomFortune();
-        setFortuneOpenedToday();
+    // Verificar si hay algún registro en el almacenamiento local
+    if (localStorage.getItem('fortuneLastOpened')) {
+        // Si hay un registro, verificar si la galleta de la fortuna ya fue abierta hoy
+        if (checkFortuneOpenedToday()) {
+            const lastFortune = getLastRevealedFortune();
+            fortuneText.textContent = lastFortune;
+            modal.style.display = 'flex';
+            return; // Salir de la función si la galleta ya fue abierta hoy
+        }
     }
-}
+
+     // Si no hay registros en el almacenamiento local o la galleta no fue abierta hoy, generar una nueva fortuna
+     generateRandomFortune();
+     setFortuneOpenedToday();
+ }
+
+    
 
 // Función para registrar la fecha de apertura de la galleta de la fortuna
 function setFortuneOpenedToday() {
