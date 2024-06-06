@@ -231,7 +231,7 @@ function setFortuneOpenedToday() {
 // Función para manejar el clic en el botón
 function handleButtonClick() {
     if (checkFortuneOpenedToday()) {
-        modal.style.display = 'block';
+        modal.style.display = 'flex';
     } else {
         generateRandomFortune();
         setFortuneOpenedToday();
