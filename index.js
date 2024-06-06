@@ -231,25 +231,14 @@ function setFortuneOpenedToday() {
 
 // Función para manejar el clic en el botón
 function handleButtonClick() {
-    // Verificar si la página se ha visitado antes
-    if (!localStorage.getItem('fortuneVisitedBefore')) {
-        // Si es la primera visita, abrir el modal con una nueva fortuna
+    if (checkFortuneOpenedToday()) {
+        const lastFortune = getLastRevealedFortune();
+        fortuneText.textContent = lastFortune;
+        modal.style.display = 'flex';
+    } else {
         generateRandomFortune();
         setFortuneOpenedToday();
-        localStorage.setItem('fortuneVisitedBefore', true);
-    } else {
-        // Si la página ya se ha visitado antes, verificar si la galleta de la fortuna ya fue abierta hoy
-        if (checkFortuneOpenedToday()) {
-            const lastFortune = getLastRevealedFortune();
-            fortuneText.textContent = lastFortune;
-            modal.style.display = 'flex';
-            return; // Salir de la función si la galleta ya fue abierta hoy
-        }
     }
-
-    // Si no hay registros en el almacenamiento local o la galleta no fue abierta hoy, generar una nueva fortuna
-    generateRandomFortune();
-    setFortuneOpenedToday();
 }
 
 // Función para obtener la última fortuna revelada
@@ -272,11 +261,10 @@ window.addEventListener('click', (event) => {
     }
 });
 
-// Comprobar si la galleta de la fortuna ya fue abierta hoy al cargar la página
+// Ajustes al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
     if (checkFortuneOpenedToday()) {
         const lastFortune = getLastRevealedFortune();
         fortuneText.textContent = lastFortune;
-        modal.style.display = 'flex';
     }
 });
