@@ -17,7 +17,7 @@
 }
 
 *::selection {
-  color: #ffc83d;
+  color: var(--hover-color);
 }
 
 html {
@@ -74,7 +74,7 @@ body {
   height: 3rem;
   text-align: center;
   color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   margin-left: 20px;
   margin-right: 20px;
 }
@@ -145,13 +145,29 @@ button.generate-phrase:focus {
   }
 }
 
+.madre {
+  margin-top: 20px;
+  text-align: center;
+  color: #000;
+  font-size: 1rem;
+}
+
+.madre a {
+  color: #000; /* Color normal del hipervínculo */
+  text-decoration: none; /* Eliminar subrayado */
+}
+
+.madre a:visited {
+  color: var(--high-color); /* Color para hipervínculos visitados */
+}
+
 /* Estilo para las imágenes de sparks */
 .spark {
   position: absolute;
   width: 50px; /* Ajusta el tamaño de la imagen según sea necesario */
   height: 50px;
   opacity: 1;
-  animation: fadeOut 3s forwards;
+  animation: fadeOut 5000ms forwards;
   pointer-events: none;
 }
 
@@ -159,6 +175,9 @@ button.generate-phrase:focus {
 @keyframes fadeOut {
   0% {
     opacity: 1;
+  }
+  70% {
+    opacity: 0.7;
   }
   100% {
     opacity: 0;
