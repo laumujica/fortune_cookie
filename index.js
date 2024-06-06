@@ -163,7 +163,7 @@ function generateRandomFortune() {
     const randomIndex = Math.floor(Math.random() * fortuneMessages.length);
     const randomFortune = fortuneMessages[randomIndex];
     fortuneText.textContent = randomFortune;
-    localStorage.setItem('lastFortune', randomFortune);
+    localStorage.setItem('fortuneOfTheDay', randomFortune);
 
     // Mostrar las imágenes de sparks
     showSparks();
@@ -232,18 +232,11 @@ function setFortuneOpenedToday() {
 // Función para manejar el clic en el botón
 function handleButtonClick() {
     if (checkFortuneOpenedToday()) {
-        const lastFortune = getLastRevealedFortune();
-        fortuneText.textContent = lastFortune;
         modal.style.display = 'flex';
     } else {
         generateRandomFortune();
         setFortuneOpenedToday();
     }
-}
-
-// Función para obtener la última fortuna revelada
-function getLastRevealedFortune() {
-    return localStorage.getItem('lastFortune');
 }
 
 // Añadir un evento de escucha al botón
@@ -261,10 +254,13 @@ window.addEventListener('click', (event) => {
     }
 });
 
-// Ajustes al cargar la página
-document.addEventListener('DOMContentLoaded', () => {
+// Mostrar la fortuna del día si ya se generó
+function displayTodayFortune() {
     if (checkFortuneOpenedToday()) {
-        const lastFortune = getLastRevealedFortune();
-        fortuneText.textContent = lastFortune;
+        const todayFortune = localStorage.getItem('fortuneOfTheDay');
+        fortuneText.textContent = todayFortune;
     }
-});
+}
+
+// Llamar a la función para mostrar la fortuna del día al cargar la página
+displayTodayFortune();
