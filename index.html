@@ -1,42 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta charset="UTF-8" />
-    
-    <link rel="icon" type="image/x-icon" href="img/fortune-cookie-one.png" />
-    <link rel="stylesheet" href="styles.css" />
-    <title>Fortune Cookie ◡ Find your spark</title>
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="title">Fortune Cookie ◡ Find your spark</title>
+  <link rel="icon" href="img/fortune-cookie-one.png" type="image/x-icon">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="intro">
+    <div class="cat"><img src="img/cat.png" alt="cat with a fortune cookie"></div>
+    <h1 id="title-text">Fortune Cookie</h1>
+    <h3 id="slogan">Find your spark. Click for today's fortune.</h3>
+  </div>
+  <div class="phrase">
+    <h2 class="fortune"><span id="fortune-text"></span></h2>
+  </div>
+  <button class="generate-phrase" id="reveal-button">REVEAL FATE!</button>
+  <div id="fortuneModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p id="modal-message">You have already opened your fortune cookie today. Come back tomorrow.</p>
+    </div>
+  </div>
+
+<!-- Language Dropdown -->
+<div class="language-selector">
+  <button id="current-language" class="dropbtn">
+    <img id="language-icon" src="img/es_arg16.png" alt="Current language icon"> ▼
+  </button>
+  <div id="language-options" class="dropdown-content">
+    <button class="dropdown-item" data-lang="en">
+      <img src="img/en_gr16.png" alt="English"> EN
+    </button>
+    <button class="dropdown-item" data-lang="es">
+      <img src="img/es_arg16.png" alt="Español"> ES
+    </button>
+  </div>
+</div>
+
+
   
-    <div class="intro">
-      <div class="cat"><img src="img/cat.png" alt="cat with a fortune cookie"></div>
-      <h1 class="title">
-        Fortune Cookie
-        <!-- 🥠 -->
-      </h1>
-      <h3 class="slogan">
-        <em>Find your spark. Click for today's fortune.</em>
-      </h3>
-    </div>
-    <div class="phrase">
-      <h2 class="fortune"><span id="fortune-text"></span></h2>
-    </div>
-    <button class="generate-phrase">REVEAL FATE!</button>
-
-    <!-- Modal HTML -->
-    <div id="fortuneModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>You have already opened your fortune cookie today.
-          <strong>Come back tomorrow! 👋 </strong></p>
-      </div>
-    </div>
-<div class="madre">Powered by <a href="https://www.efectomadre.com.ar/" target="_blank"><u>Madre</u></a></div>
-
+  <script src="fortunes-en.js"></script>
+  <script src="fortunes-es.js"></script>
   <script defer src="index.js"></script>
 </body>
 </html>
