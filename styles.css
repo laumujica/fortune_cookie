@@ -253,13 +253,13 @@ button.generate-phrase:focus {
   background-color: var(--primary-color);
   color: white;
   padding: 10px;
-  font-size: 16px;
+  font-size: 13px;
   border: none;
   cursor: pointer;
   border-radius: 1rem 1rem 0 0;
   display: flex;
   align-items: center;
-  width: 5.3rem;
+  width: 5rem;
 }
 
 .dropbtn img {
@@ -270,7 +270,7 @@ button.generate-phrase:focus {
   display: none;
   position: absolute;
   background-color: var(--white-color);
-  width: 5.3rem; 
+  width: 5rem;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   border-radius: 0 0 1rem 1rem;
