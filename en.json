@@ -2,6 +2,6 @@
     "title": "Fortune Cookie",
     "slogan": "Find your spark. Click for today's fortune.",
     "reveal_button": "REVEAL FATE!",
-    "modal_message": "You have already opened your fortune cookie today. Come back tomorrow! 👋"
+    "modal_message": "You have already opened your fortune cookie today. <strong id=\"boldText\">Come back tomorrow! 👋</strong>"
   }
   

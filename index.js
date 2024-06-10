@@ -23,11 +23,12 @@ function loadLanguage(language) {
             document.getElementById('title-text').textContent = data.title;
             document.getElementById('slogan').textContent = data.slogan;
             document.getElementById('reveal-button').textContent = data.reveal_button;
-            document.getElementById('modal-message').textContent = data.modal_message;
+            document.getElementById('modal-message').innerHTML = data.modal_message; // Usar innerHTML para interpretar las etiquetas HTML
             localStorage.setItem('language', language);
             loadFortunes(language); // Cargar las frases según el idioma
         });
 }
+
 
 // Función para generar y mostrar una fortuna aleatoria
 function generateRandomFortune() {
@@ -174,8 +175,6 @@ function changeLanguage(lang) {
 
     setLanguage(lang);
 }
-
-
 
 // Manejar el clic en las opciones del dropdown
 dropdownItems.forEach(item => {

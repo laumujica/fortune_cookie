@@ -17,7 +17,7 @@
 }
 
 *::selection {
-  color: var(--hover-color);
+  color: var(--bg-color);
 }
 
 html {
@@ -70,15 +70,11 @@ body {
   width: 200px;
 }
 
-h1, h3 {
-  margin: 0;
-}
-
 .fortune {
   margin: 20px 0;
 }
 
-.title {
+#title-text {
   font-family: "fortuneCookie";
   font-weight: 200;
   height: 3rem;
@@ -87,12 +83,15 @@ h1, h3 {
   margin-bottom: 5px;
   margin-left: 20px;
   margin-right: 20px;
+  margin: 0;
 }
 
-.slogan {
+#slogan {
   font-size: 16px;
   color: var(--high-color);
   text-align: center;
+  margin: 0;
+  font-style: italic;
 }
 
 .phrase {
@@ -222,6 +221,8 @@ button.generate-phrase:focus {
   animation: fadeIn 0.3s ease-in-out;
 }
 
+
+
 .close {
   color: #aaa;
   float: right;
@@ -275,7 +276,6 @@ button.generate-phrase:focus {
   border-radius: 0 0 1rem 1rem;
 }
 
-
 .dropdown-content button {
   background: none;
   border: none;
@@ -306,6 +306,11 @@ button.generate-phrase:focus {
 .language-selector:hover .dropbtn {
   background-color: var(--hover-color);
 }
+
+#modal-message #boldText {
+  font-weight: bold;
+}
+
 
 /* CSS de ongoing */
 header {
