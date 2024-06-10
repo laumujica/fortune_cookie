@@ -34,8 +34,12 @@ function loadLanguage(language) {
 function generateRandomFortune() {
     const randomIndex = Math.floor(Math.random() * fortuneMessages.length);
     const randomFortune = fortuneMessages[randomIndex];
-    fortuneText.textContent = randomFortune;
-    localStorage.setItem('todayFortune', randomFortune); // Guardar la fortuna del día
+    if (randomFortune) {
+        fortuneText.textContent = randomFortune;
+        localStorage.setItem('todayFortune', randomFortune); // Guardar la fortuna del día
+    } else {
+        console.error('No se pudo generar una fortuna. Verifique que las frases estén cargadas correctamente.');
+    }
 
     // Mostrar las imágenes de sparks
     showSparks();
@@ -183,6 +187,21 @@ dropdownItems.forEach(item => {
         changeLanguage(selectedLang);
     });
 });
+
+
+// Verificar que las frases se carguen correctamente al cambiar el idioma
+function loadLanguage(language) {
+    fetch(`${language}.json`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('title-text').textContent = data.title;
+            document.getElementById('slogan').textContent = data.slogan;
+            document.getElementById('reveal-button').textContent = data.reveal_button;
+            document.getElementById('modal-message').innerHTML = data.modal_message; // Usar innerHTML para el mensaje del modal
+            localStorage.setItem('language', language);
+            loadFortunes(language); // Cargar las frases según el idioma
+        });
+}
 
 // Inicializar el idioma por defecto en el selector
 document.addEventListener('DOMContentLoaded', () => {
