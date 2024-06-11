@@ -145,9 +145,11 @@ function displayTodayFortune() {
     if (savedFortune && savedDate === today) {
         fortuneText.textContent = savedFortune; // Mostrar la fortuna guardada si la fecha es la misma
     } else {
+        hideSparks(); // Ocultar los sparks al cargar la página
         generateRandomFortune(); // Generar una nueva fortuna si no hay una guardada o si la fecha es diferente
     }
 }
+
 
 // Cargar el idioma preferido al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
