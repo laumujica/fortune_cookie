@@ -37,6 +37,7 @@ function generateRandomFortune() {
     if (randomFortune) {
         fortuneText.textContent = randomFortune;
         localStorage.setItem('todayFortune', randomFortune); // Guardar la fortuna del día
+        localStorage.setItem('fortuneDate', new Date().toISOString().split('T')[0]); // Guardar la fecha de hoy
     } else {
         console.error('No se pudo generar una fortuna. Verifique que las frases estén cargadas correctamente.');
     }
@@ -135,13 +136,16 @@ function setLanguage(language) {
     loadLanguage(language);
 }
 
-// Función para mostrar la fortuna del día si ya ha sido generada
+// Función para mostrar la fortuna del día si ya existe
 function displayTodayFortune() {
-    if (checkFortuneOpenedToday()) {
-        const storedFortune = localStorage.getItem('todayFortune');
-        if (storedFortune) {
-            fortuneText.textContent = storedFortune;
-        }
+    const savedFortune = localStorage.getItem('todayFortune');
+    const savedDate = localStorage.getItem('fortuneDate');
+    const today = new Date().toISOString().split('T')[0]; // Obtener la fecha de hoy en formato YYYY-MM-DD
+
+    if (savedFortune && savedDate === today) {
+        fortuneText.textContent = savedFortune; // Mostrar la fortuna guardada si la fecha es la misma
+    } else {
+        generateRandomFortune(); // Generar una nueva fortuna si no hay una guardada o si la fecha es diferente
     }
 }
 
