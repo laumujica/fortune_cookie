@@ -1,49 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="title">Fortune Cookie ◡ Find your spark</title>
-  <link rel="icon" href="img/fortune-cookie-one.png" type="image/x-icon">
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="title">Fortune Cookie ◡ Find your spark</title>
+    <link rel="icon" href="img/fortune-cookie-one.png" type="image/x-icon" />
 
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div class="intro">
-    <div class="cat"><img src="img/cat.png" alt="cat with a fortune cookie"></div>
-    <h1 id="title-text"></h1>
-    <h3 id="slogan"></h3>
-  </div>
-  <div class="phrase">
-    <h2 class="fortune"><span id="fortune-text"></span></h2>
-  </div>
-  <button class="generate-phrase" id="reveal-button">REVEAL FATE!</button>
-  <div id="fortuneModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <p id="modal-message"></p>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="intro">
+      <div class="cat">
+        <img src="img/cat.png" alt="cat with a fortune cookie" />
+      </div>
+      <h1 id="title-text"></h1>
+      <h3 id="slogan"></h3>
     </div>
-  </div>
+    <div class="phrase">
+      <h2 class="fortune"><span id="fortune-text"></span></h2>
+    </div>
+    <button class="generate-phrase" id="reveal-button">REVEAL FATE!</button>
+    <div id="fortuneModal" class="modal">
+      <div id="modal-content" class="modal-content">
+        <span class="close">&times;</span>
+        <p id="modal-message"></p>
+      </div>
+    </div>
 
-<!-- Language Dropdown -->
-<div class="language-selector">
-  <button id="current-language" class="dropbtn">
-    <img id="language-icon" src="img/es_arg16.png" alt="Current language icon"> ▼
-  </button>
-  <div id="language-options" class="dropdown-content">
-    <button class="dropdown-item" data-lang="en">
-      <img src="img/en_gr16.png" alt="English"> EN
-    </button>
-    <button class="dropdown-item" data-lang="es">
-      <img src="img/es_arg16.png" alt="Español"> ES
-    </button>
-  </div>
-</div>
+    <div class="language-selector">
+      <input type="checkbox" id="languageSwitch" />
+      <label for="languageSwitch" id="switchLabel"></label>
+    </div>
 
+    
 
-  
-  <script src="fortunes-en.js"></script>
-  <script src="fortunes-es.js"></script>
-  <script defer src="index.js"></script>
-</body>
+    <script src="fortunes-en.js"></script>
+    <script src="fortunes-es.js"></script>
+    <script defer src="index.js"></script>
+  </body>
 </html>

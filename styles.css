@@ -96,7 +96,7 @@ body {
 
 .phrase {
   margin-top: 80px;
-  min-width: 8rem;
+  max-width: 50rem;
   min-height: 8rem;
   text-align: center;
 }
@@ -209,28 +209,31 @@ button.generate-phrase:focus {
   align-items: center;
 }
 
-.modal-content {
-  background-color: #fefefe;
+#modal-content {
+  background-color: var(--white-color);
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-  max-width: 400px;
-  padding: 20px;
+  max-width: 30rem; 
+  padding: 30px;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   text-align: center;
   animation: fadeIn 0.3s ease-in-out;
+  font-size: 1.3rem;
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .close {
-  color: #aaa;
-  float: right;
+  color: var(--bg-color);
   font-size: 28px;
   font-weight: bold;
+  text-align: right;
+  margin-top: -1rem;
 }
 
 .close:hover,
 .close:focus {
-  color: black;
+  color: var(--hover-color);
   text-decoration: none;
   cursor: pointer;
 }
@@ -243,8 +246,8 @@ button.generate-phrase:focus {
 /* Dropdown Menu */
 .language-selector {
   position: absolute;
-  top: 1rem;
-  right: 5rem;
+  top: 3rem;
+  right: 100rem;
 }
 
 .dropbtn {
@@ -308,6 +311,76 @@ button.generate-phrase:focus {
 #modal-message #boldText {
   font-weight: bold;
 }
+
+/** nuevo togle */
+#languageSwitch {
+  --s: 50px; /* Adjust this to control the size */
+  height: calc(var(--s) + var(--s) / 2);
+  width: auto; /* Some browsers need this */
+  aspect-ratio: 2;
+/*   border: 4px var(--white-color) solid; */
+  border-radius: var(--s);
+  margin: calc(var(--s) / 2);
+  display: grid;
+  cursor: pointer;
+  background-color: var(--light-color);
+  box-sizing: content-box;
+  overflow: hidden;
+  transition: 0.3s 0.1s;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: relative; 
+
+}
+
+#languageSwitch:before {
+  content: 'ES'; 
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  width: var(--s);
+  height: var(--s);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: calc(var(--s)/10);
+  --_g: radial-gradient(circle closest-side at calc(100% - var(--s)/2) 50%,#000 96%,#0000);
+  background: 
+    var(--_g) 0 / var(--_p, var(--s)) 100% no-repeat content-box,
+    var(--_g) var(--_p, 0) / var(--s) 100% no-repeat content-box,
+    #fff;
+  mix-blend-mode: darken;
+  transition: 0.4s, background-position 0.4s 0.1s,
+    padding cubic-bezier(0, calc(var(--_i, -1) * 200), 1, calc(var(--_i, -1) * 200)) 0.25s 0.1s,
+    left 0.4s, content 0.4s; /* Added transitions for left and content */
+}
+
+#languageSwitch:checked {
+  background-color: var(--high-color);
+}
+
+#languageSwitch:checked:before {
+  content: 'EN'; /* Content when checked */
+  left: 75%;
+  --_p: 100%;
+  --_i: 1;
+  padding: calc(var(--s) / 10 + 0.05px) calc(var(--s) / 10);
+}
+
+/* #switchLabel {
+  color: #fff;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+ */
 
 
 /* CSS de ongoing */
@@ -417,35 +490,6 @@ h2 {
 }
 
 /* ! Estilos responsive */
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-  body {
-    font-size: 1rem; 
-  }
-
-  .cat > img {
-    width: 200px;
-  }
-
-  #title-text {
-    font-size: 2.5rem;
-  }
-
-  #fortune-text {
-    font-size: 1.3rem;
-    max-width: 8rem;
-  }
-
-  .generate-phrase {
-    font-size: 1.1rem; 
-    padding: 10px 20px;
-  }
-
-  .modal-content {
-    width: 90%;
-    padding: 60px;
-  }
-}
-
 
 @media screen and (max-width: 768px) {
   header {
@@ -517,4 +561,50 @@ h2 {
   max-width: 100%;
   height: auto;
   border-radius: 5px;
+}
+
+.language-selector {
+  max-width: 100%;
+  right: 2.5rem;
+  top: 2rem;
+}
+
+#languageSwitch {
+  --s: 30px; /* Reduce size for mobile */
+  margin: calc(var(--s) / 4); /* Adjust margin for mobile */
+}
+
+#languageSwitch:before, #languageSwitch:checked:before {
+  font-size: 0.8em; /* Adjust font size for mobile */
+}
+
+
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  body {
+    font-size: 1rem; 
+  }
+
+  .cat > img {
+    width: 200px;
+  }
+
+  #title-text {
+    font-size: 2.5rem;
+  }
+
+  #fortune-text {
+    font-size: 1.3rem;
+    max-width: 8rem;
+  }
+
+  .generate-phrase {
+    font-size: 1.1rem; 
+    padding: 10px 20px;
+  }
+
+  .modal-content {
+    width: 90%;
+    padding: 60px;
+  }
 }

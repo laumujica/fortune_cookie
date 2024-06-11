@@ -29,14 +29,13 @@ function loadLanguage(language) {
         });
 }
 
-
 // Función para generar y mostrar una fortuna aleatoria
 function generateRandomFortune() {
     const randomIndex = Math.floor(Math.random() * fortuneMessages.length);
     const randomFortune = fortuneMessages[randomIndex];
     if (randomFortune) {
         fortuneText.textContent = `"${randomFortune}"`;
-        localStorage.setItem('todayFortune', randomFortune); // Guardar la fortuna del día
+        localStorage.setItem('todayFortune', `"${randomFortune}"`); // Guardar la fortuna del día
         localStorage.setItem('fortuneDate', new Date().toISOString().split('T')[0]); // Guardar la fecha de hoy
     } else {
         console.error('No se pudo generar una fortuna. Verifique que las frases estén cargadas correctamente.');
@@ -150,50 +149,12 @@ function displayTodayFortune() {
     }
 }
 
-
 // Cargar el idioma preferido al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
     const preferredLanguage = localStorage.getItem('language') || 'es';
     loadLanguage(preferredLanguage);
     displayTodayFortune();
 });
-
-// Código para el selector de idioma
-const languageButton = document.querySelector('.dropbtn');
-const languageIcon = document.getElementById('language-icon');
-const dropdownItems = document.querySelectorAll('.dropdown-item');
-
-const languageMap = {
-    en: {
-        icon: 'img/en_gr16.png',
-        text: 'EN'
-    },
-    es: {
-        icon: 'img/es_arg16.png',
-        text: 'ES'
-    }
-};
-
-// Función para cambiar el idioma desde el selector
-function changeLanguage(lang) {
-    dropdownItems.forEach(item => {
-        item.style.display = item.getAttribute('data-lang') === lang ? 'none' : 'block';
-    });
-
-    languageIcon.src = languageMap[lang].icon;
-    languageButton.innerHTML = `<img id="language-icon" src="${languageMap[lang].icon}" alt="Current language icon"> ${languageMap[lang].text} ▼`;
-
-    setLanguage(lang);
-}
-
-// Manejar el clic en las opciones del dropdown
-dropdownItems.forEach(item => {
-    item.addEventListener('click', () => {
-        const selectedLang = item.getAttribute('data-lang');
-        changeLanguage(selectedLang);
-    });
-});
-
 
 // Verificar que las frases se carguen correctamente al cambiar el idioma
 function loadLanguage(language) {
@@ -209,10 +170,10 @@ function loadLanguage(language) {
         });
 }
 
-// Inicializar el idioma por defecto en el selector
-document.addEventListener('DOMContentLoaded', () => {
-    const preferredLanguage = localStorage.getItem('language') || 'es';
-    changeLanguage(preferredLanguage);
-    loadLanguage(preferredLanguage);
-    displayTodayFortune();
+document.getElementById('languageSwitch').addEventListener('change', (event) => {
+    const language = event.target.checked ? 'en' : 'es';
+    setLanguage(language);
+
+    // Actualizar el texto del interruptor
+    document.getElementById('languageSwitch').setAttribute('data-label', language.toUpperCase());
 });
