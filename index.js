@@ -35,7 +35,7 @@ function generateRandomFortune() {
     const randomIndex = Math.floor(Math.random() * fortuneMessages.length);
     const randomFortune = fortuneMessages[randomIndex];
     if (randomFortune) {
-        fortuneText.textContent = randomFortune;
+        fortuneText.textContent = `"${randomFortune}"`;
         localStorage.setItem('todayFortune', randomFortune); // Guardar la fortuna del día
         localStorage.setItem('fortuneDate', new Date().toISOString().split('T')[0]); // Guardar la fecha de hoy
     } else {

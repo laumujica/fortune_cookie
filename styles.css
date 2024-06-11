@@ -221,8 +221,6 @@ button.generate-phrase:focus {
   animation: fadeIn 0.3s ease-in-out;
 }
 
-
-
 .close {
   color: #aaa;
   float: right;
@@ -419,6 +417,36 @@ h2 {
 }
 
 /* ! Estilos responsive */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  body {
+    font-size: 1rem; 
+  }
+
+  .cat > img {
+    width: 200px;
+  }
+
+  #title-text {
+    font-size: 2.5rem;
+  }
+
+  #fortune-text {
+    font-size: 1.3rem;
+    max-width: 8rem;
+  }
+
+  .generate-phrase {
+    font-size: 1.1rem; 
+    padding: 10px 20px;
+  }
+
+  .modal-content {
+    width: 90%;
+    padding: 60px;
+  }
+}
+
+
 @media screen and (max-width: 768px) {
   header {
     padding: 10px;
@@ -441,32 +469,37 @@ h2 {
   }
 
   .phrase {
-    margin-top: 50px;
-    min-height: 8rem;
-    min-width: 8rem;
-    /* border: #ffc83d solid 1px; */
+    margin-top: 2rem;
+    min-height: 5rem;
+    min-width: 5rem;
     text-align: center;
     padding-left: 20px;
     padding-right: 20px;
   }
 
   .cat > img {
-    width: 170px;
+    width: 10rem;
+  }
+
+  #title-text {
+    font-size: 1.5rem;
   }
 
   #fortune-text {
     height: auto;
     padding-bottom: 5rem;
-    line-height: 0.5;
     font-size: 1rem;
   }
 
-  .slogan {
+  #slogan {
+    margin-top: -1rem;
     font-size: 14px;
     text-align: center;
+    max-width: 20rem;
   }
 
   button.generate-phrase {
+    margin-top: 3rem;
     font-size: 1rem;
     padding: 8px;
     border: 5px solid white;
@@ -474,8 +507,9 @@ h2 {
 }
 
 .modal-content {
-  width: 90%;
+  width: 75%;
   padding: 15px;
+  font-size: 14px;
 }
 
 .gif-container img {
