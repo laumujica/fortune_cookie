@@ -275,6 +275,7 @@ button.generate-phrase:focus {
   animation: fadeOut 5000ms forwards;
   pointer-events: none;
   z-index: 0;
+  display: none;
 }
 
 /* Animación de desvanecimiento */
