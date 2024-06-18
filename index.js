@@ -15,6 +15,9 @@ const generateButton = document.querySelector(".generate-phrase");
 const fortuneText = document.getElementById("fortune-text");
 const modal = document.getElementById("fortuneModal");
 const closeModal = document.querySelector(".close");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const shareButton = document.getElementById("share-button");
 
 // Función para cargar y aplicar la traducción
 function loadLanguage(language) {
@@ -40,7 +43,7 @@ function generateRandomFortune() {
   } else {
     console.error('No se pudo generar una fortuna. Verifique que las frases estén cargadas correctamente.');
   }
-  showSparks();
+  showShareButton(); // Mostrar el botón de compartir
 }
 
 // Función para mostrar la fortuna del día si ya existe
@@ -53,54 +56,7 @@ function displayTodayFortune() {
     currentFortuneIndex = parseInt(savedIndex, 10);
     fortuneText.textContent = `"${fortuneMessages[currentFortuneIndex]}"`;
   } else {
-    hideSparks();
     generateRandomFortune();
-  }
-}
-
-// Función para mostrar las imágenes de sparks
-function showSparks() {
-  const buttonRect = generateButton.getBoundingClientRect(); // Obtener la posición del botón
-  const bodyRect = document.body.getBoundingClientRect(); // Obtener los límites del body
-  const sparks = document.querySelectorAll(".spark");
-  sparks.forEach((spark) => {
-    spark.style.display = "block"; // Mostrar los sparks
-  });
-
-  for (let i = 0; i < 50; i++) {
-    // Ajusta el número de sparks según sea necesario
-    const spark = document.createElement("img");
-    spark.src = "img/spark2.png"; // Reemplaza con la ruta correcta de tu imagen de spark
-    spark.classList.add("spark");
-    document.body.appendChild(spark);
-
-    // Colocar el spark en la posición del botón
-    spark.style.left = `${buttonRect.left + buttonRect.width / 2}px`;
-    spark.style.top = `${buttonRect.top + buttonRect.height / 2}px`;
-
-    // Mover el spark a una posición aleatoria alrededor del botón dentro de los límites del body
-    const angle = Math.random() * 2 * Math.PI;
-    const radius = Math.random() * 300 + 50; // Ajusta el radio según sea necesario
-    const offsetX = radius * Math.cos(angle);
-    const offsetY = radius * Math.sin(angle);
-
-    const targetX = buttonRect.left + buttonRect.width / 2 + offsetX;
-    const targetY = buttonRect.top + buttonRect.height / 2 + offsetY;
-
-    // Asegurarse de que el spark no se salga de los límites del body
-    const maxX = bodyRect.width - spark.width;
-    const maxY = bodyRect.height - spark.height;
-
-    spark.style.left = `${Math.min(Math.max(targetX, 0), maxX)}px`;
-    spark.style.top = `${Math.min(Math.max(targetY, 0), maxY)}px`;
-
-    // Animar el spark a la nueva posición
-    spark.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-
-    // Eliminar el spark después de la animación
-    spark.addEventListener("animationend", () => {
-      spark.remove();
-    });
   }
 }
 
@@ -151,14 +107,6 @@ function setLanguage(language) {
   loadLanguage(language);
 }
 
-// Definición de la función hideSparks
-function hideSparks() {
-  const sparks = document.querySelectorAll(".spark");
-  sparks.forEach((spark) => {
-    spark.style.display = "none";
-  });
-}
-
 // Cargar el idioma preferido al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
   const preferredLanguage = localStorage.getItem("language") || "es";
@@ -195,3 +143,74 @@ document.getElementById("languageSwitch").addEventListener("change", (event) => 
   setLanguage(language);
   document.getElementById("languageSwitch").setAttribute("data-label", language.toUpperCase());
 });
+
+// Función para mostrar el botón de compartir
+function showShareButton() {
+  shareButton.style.display = "block";
+}
+
+// Añadir evento al botón de compartir
+shareButton.addEventListener("click", () => {
+  generateImage(); // Generar la imagen con la fortuna antes de compartir
+  canvas.toBlob((blob) => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'fortune.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+});
+
+// Función para generar la imagen con el texto aleatorio
+function generateImage() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Estilos para el canvas
+  ctx.fillStyle = "gray";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.font = "48px Arial";
+  ctx.fillStyle = "white";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  
+  const text = fortuneText.textContent;
+  const x = canvas.width / 2;
+  const y = canvas.height / 2;
+
+   // Ajustar el texto para que se divida en líneas si es muy largo
+   const maxWidth = canvas.width - 40; // Ajusta el ancho máximo según sea necesario
+   const lineHeight = 50; // Ajusta la altura de la línea según sea necesario
+   const lines = wrapText(ctx, text, x, y, maxWidth, lineHeight);
+ 
+   // Dibujar cada línea de texto en el canvas
+   lines.forEach((line, i) => {
+     ctx.fillText(line, x, y - (lines.length / 2 - i) * lineHeight);
+   });
+ }
+ 
+ // Función para dividir el texto en líneas según el ancho máximo
+ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+   const words = text.split(' ');
+   let line = '';
+   const lines = [];
+ 
+   words.forEach((word) => {
+     const testLine = line + word + ' ';
+     const metrics = ctx.measureText(testLine);
+     const testWidth = metrics.width;
+ 
+     if (testWidth > maxWidth && line.length > 0) {
+       lines.push(line.trim());
+       line = word + ' ';
+     } else {
+       line = testLine;
+     }
+   });
+ 
+   lines.push(line.trim());
+   return lines;
+ }
+ 
