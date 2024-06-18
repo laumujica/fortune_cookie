@@ -153,8 +153,6 @@ body {
   }
 }
 
-
-
 .intro {
   display: flex;
   justify-content: center;
@@ -176,10 +174,10 @@ body {
   height: 3rem;
   text-align: center;
   color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   margin-left: 20px;
   margin-right: 20px;
-  margin: 0;
+  /* margin: 0; */
 }
 
 #slogan {
@@ -191,7 +189,7 @@ body {
 }
 
 .phrase {
-  margin-top: 80px;
+  margin-top: 70px;
   max-width: 50rem;
   min-height: 8rem;
   text-align: center;
@@ -420,7 +418,7 @@ button.generate-phrase:focus {
   margin: calc(var(--s) / 2);
   display: grid;
   cursor: pointer;
-  background-color: var(--light-color);
+  background-color: var(--high-color);
   box-sizing: content-box;
   overflow: hidden;
   transition: 0.3s 0.1s;
@@ -457,7 +455,7 @@ button.generate-phrase:focus {
 }
 
 #languageSwitch:checked {
-  background-color: var(--high-color);
+  background-color: var(--light-color);
 }
 
 #languageSwitch:checked:before {
@@ -467,17 +465,6 @@ button.generate-phrase:focus {
   --_i: 1;
   padding: calc(var(--s) / 10 + 0.05px) calc(var(--s) / 10);
 }
-
-/* #switchLabel {
-  color: #fff;
-  font-weight: bold;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
- */
 
 
 /* CSS de ongoing */
@@ -616,6 +603,7 @@ h2 {
     text-align: center;
     padding-left: 20px;
     padding-right: 20px;
+    line-height: 1.5rem;
   }
 
   .cat > img {
@@ -627,9 +615,9 @@ h2 {
   }
 
   #fortune-text {
-    height: auto;
+    max-width: 700px;
     padding-bottom: 5rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   #slogan {
@@ -693,6 +681,7 @@ h2 {
   #fortune-text {
     font-size: 1.3rem;
     max-width: 8rem;
+    line-height: 1;
   }
 
   .generate-phrase {
