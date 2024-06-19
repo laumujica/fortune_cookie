@@ -10,7 +10,7 @@ function loadFortunes(language) {
   }
 }
 
-// Obtener el botón y el elemento de texto de la fortuna
+// Obtener los elementos del DOM
 const generateButton = document.querySelector(".generate-phrase");
 const fortuneText = document.getElementById("fortune-text");
 const modal = document.getElementById("fortuneModal");
@@ -18,6 +18,7 @@ const closeModal = document.querySelector(".close");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const shareButton = document.getElementById("share-button");
+const viewButton = document.getElementById("view-button"); // Añadido: Obtener el botón de "Ver"
 
 // Función para cargar y aplicar la traducción
 function loadLanguage(language) {
@@ -77,7 +78,7 @@ function setFortuneOpenedToday() {
   localStorage.setItem("fortuneLastOpened", today.toString());
 }
 
-// Función para manejar el clic en el botón
+// Función para manejar el clic en el botón "Revelar"
 function handleButtonClick() {
   if (checkFortuneOpenedToday()) {
     modal.style.display = "flex";
@@ -87,7 +88,7 @@ function handleButtonClick() {
   }
 }
 
-// Añadir un evento de escucha al botón
+// Añadir un evento de escucha al botón "Revelar"
 generateButton.addEventListener("click", handleButtonClick);
 
 // Función para cerrar el modal
@@ -163,6 +164,17 @@ shareButton.addEventListener("click", () => {
   });
 });
 
+/* // Añadir evento al botón de ver
+if (viewButton) {
+  viewButton.addEventListener("click", () => {
+    generateImage(); // Generar la imagen con la fortuna
+    const imageModal = document.getElementById("imageModal");
+    const modalImage = document.getElementById("modal-image");
+    modalImage.src = canvas.toDataURL(); // Mostrar la imagen generada en el modal
+    imageModal.style.display = "flex";
+  });
+} */
+
 // Función para generar la imagen con el texto aleatorio
 function generateImage() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -175,42 +187,41 @@ function generateImage() {
   ctx.fillStyle = "white";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  
+
   const text = fortuneText.textContent;
   const x = canvas.width / 2;
   const y = canvas.height / 2;
 
-   // Ajustar el texto para que se divida en líneas si es muy largo
-   const maxWidth = canvas.width - 40; // Ajusta el ancho máximo según sea necesario
-   const lineHeight = 50; // Ajusta la altura de la línea según sea necesario
-   const lines = wrapText(ctx, text, x, y, maxWidth, lineHeight);
- 
-   // Dibujar cada línea de texto en el canvas
-   lines.forEach((line, i) => {
-     ctx.fillText(line, x, y - (lines.length / 2 - i) * lineHeight);
-   });
- }
- 
- // Función para dividir el texto en líneas según el ancho máximo
- function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
-   const words = text.split(' ');
-   let line = '';
-   const lines = [];
- 
-   words.forEach((word) => {
-     const testLine = line + word + ' ';
-     const metrics = ctx.measureText(testLine);
-     const testWidth = metrics.width;
- 
-     if (testWidth > maxWidth && line.length > 0) {
-       lines.push(line.trim());
-       line = word + ' ';
-     } else {
-       line = testLine;
-     }
-   });
- 
-   lines.push(line.trim());
-   return lines;
- }
- 
+  // Ajustar el texto para que se divida en líneas si es muy largo
+  const maxWidth = canvas.width - 40; // Ajusta el ancho máximo según sea necesario
+  const lineHeight = 50; // Ajusta la altura de la línea según sea necesario
+  const lines = wrapText(ctx, text, x, y, maxWidth, lineHeight);
+
+  // Dibujar cada línea de texto en el canvas
+  lines.forEach((line, i) => {
+    ctx.fillText(line, x, y - (lines.length / 2 - i) * lineHeight);
+  });
+}
+
+// Función para dividir el texto en líneas según el ancho máximo
+function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+  const words = text.split(' ');
+  let line = '';
+  const lines = [];
+
+  words.forEach((word) => {
+    const testLine = line + word + ' ';
+    const metrics = ctx.measureText(testLine);
+    const testWidth = metrics.width;
+
+    if (testWidth > maxWidth && line.length > 0) {
+      lines.push(line.trim());
+      line = word + ' ';
+    } else {
+      line = testLine;
+    }
+  });
+
+  lines.push(line.trim());
+  return lines;
+}

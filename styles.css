@@ -640,6 +640,26 @@ h2 {
   text-decoration: none;
 }
 
+/* ? Botón ver en JS */
+/* Estilos para el botón Ver */
+.view-button {
+  background-color: #4CAF50; /* Color de fondo */
+  color: white; /* Color del texto */
+  padding: 10px 20px; /* Relleno interno */
+  font-size: 16px; /* Tamaño de fuente */
+  border: none; /* Sin borde */
+  cursor: pointer; /* Cursor apuntador */
+}
+
+.view-button:hover {
+  background-color: #45a049; /* Color de fondo al pasar el mouse */
+}
+
+.view-button:active {
+  background-color: #3e8e41; /* Color de fondo al hacer clic */
+}
+
+
 /* ! Estilos responsive */
 
 @media screen and (max-width: 768px) {
