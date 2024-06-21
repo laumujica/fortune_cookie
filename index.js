@@ -131,7 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
     generateButton.disabled = true;
   }
 });
-
 // Verificar que las frases se carguen correctamente al cambiar el idioma
 function loadLanguage(language) {
   fetch(`${language}.json`)
@@ -233,9 +232,17 @@ viewButton.addEventListener("click", () => {
 });
 
 // Función para generar la imagen con el texto aleatorio
-function generateImage(marginTop) {
+function generateImage(language) {
   return new Promise((resolve, reject) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Determinar la imagen de fondo según el idioma
+    let backgroundImage;
+    if (language === "es") {
+      backgroundImage = "img/bg-imgES.jpg"; // Imagen de fondo para español
+    } else {
+      backgroundImage = "img/bg-imgEN.jpg"; // Imagen de fondo para inglés
+    }
 
     // Crear una nueva imagen de fondo
     const img = new Image();
@@ -279,7 +286,7 @@ function generateImage(marginTop) {
     };
 
     // Establecer la ruta de la imagen de fondo
-    img.src = "img/bg-img.jpg";
+    img.src = backgroundImage;
   });
 }
 
