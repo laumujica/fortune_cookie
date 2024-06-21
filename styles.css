@@ -318,10 +318,11 @@ span.close-fortune {
   text-align: center;
 }
 
-canvas {
+.image-container {
   border: 1px solid white;
   background-color: gray;
   display: none;
+  text-align: center;
 }
 
 #share-button,
@@ -358,7 +359,7 @@ canvas {
 #imageModal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 9999;
   left: 0;
   top: 0;
   width: 100%;
@@ -372,6 +373,12 @@ canvas {
   background-color: #fefefe;
   border: 1px solid #888;
   width: 60rem;
+}
+
+#modal-image {
+  max-width: 100%;
+  max-height: 80vh; /* Ajusta el tamaño máximo de la imagen */
+  border-radius: 10px; /* Borde redondeado opcional */
 }
 
 .close {

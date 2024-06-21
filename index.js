@@ -18,7 +18,7 @@ const closeModalF = document.querySelector(".close-fortune");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const shareButton = document.getElementById("share-button");
-const viewButton = document.getElementById("view-button"); 
+const viewButton = document.getElementById("view-button");
 const closeModal = document.querySelector(".close");
 const languageSwitch = document.getElementById("languageSwitch");
 
@@ -140,7 +140,7 @@ function loadLanguage(language) {
       document.getElementById("title-text").textContent = data.title;
       document.getElementById("slogan").textContent = data.slogan;
       document.getElementById("reveal-button").textContent = data.reveal_button;
-      document.getElementById("modal-message").innerHTML = data.modal_message; 
+      document.getElementById("modal-message").innerHTML = data.modal_message;
       document.getElementById("share-button").textContent = data.share_button;
       document.getElementById("view-button").textContent = data.view_button;
       // Usar innerHTML para el mensaje del modal
@@ -200,66 +200,86 @@ function getFilename() {
 
 // Añadir evento al botón de compartir
 shareButton.addEventListener("click", () => {
-  generateImage(); // Generar la imagen con la fortuna antes de compartir
-  canvas.toBlob((blob) => {
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    const language = localStorage.getItem("language");
-    const date = new Date().toLocaleDateString(
-      language === "es" ? "es-ES" : "en-US"
-    );
-    const fileName =
-      language === "es" ? `miFortuna-${date}.png` : `myFortune-${date}.png`;
-    a.download = fileName;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  });
+  generateImage(); // Generar la imagen con texto
+  setTimeout(() => {
+    // Esperar un breve momento para asegurarse de que generateImage() haya terminado
+    canvas.toBlob((blob) => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      const language = localStorage.getItem("language");
+      const date = new Date().toLocaleDateString(
+        language === "es" ? "es-ES" : "en-US"
+      );
+      const fileName =
+        language === "es" ? `miFortuna-${date}.png` : `myFortune-${date}.png`;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
+  }, 100); // Esperar 100ms (ajusta según sea necesario)
 });
 
 // Añadir evento al botón de ver para mostrar el modal de imagen
 viewButton.addEventListener("click", () => {
-  generateImage();
-  const imageModal = document.getElementById("imageModal");
-  const modalImage = document.getElementById("modal-image");
-  modalImage.src = canvas.toDataURL(); // Establecer la imagen generada en el modal
-  imageModal.style.display = "flex";
+  generateImage().then(() => {
+    // Esperar a que generateImage() termine
+    const imageModal = document.getElementById("imageModal");
+    const modalImage = document.getElementById("modal-image");
+    modalImage.src = canvas.toDataURL(); // Establecer la imagen generada en el modal
+    imageModal.style.display = "flex";
+  });
 });
 
 // Función para generar la imagen con el texto aleatorio
 function generateImage() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  return new Promise((resolve, reject) => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Establecer la escala de reducción
-  const scale = 1; // Por ejemplo, reducir a la mitad
+    // Crear una nueva imagen de fondo
+    const img = new Image();
+    img.onload = function () {
+      // Establecer el tamaño del canvas al tamaño de la imagen
+      canvas.width = img.width;
+      canvas.height = img.height;
 
-  // Aplicar la escala al canvas y contexto
-  canvas.width = 1080 * scale;
-  canvas.height = 1920 * scale;
-  ctx.scale(scale, scale);
+      // Dibujar la imagen de fondo en el canvas
+      ctx.drawImage(img, 0, 0);
 
-  // Estilos para el canvas
-  ctx.fillStyle = "gray";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Estilos para el texto
+      ctx.font = "60px Futura";
+      ctx.fillStyle = "white";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
 
-  ctx.font = "48px Futura";
-  ctx.fillStyle = "white";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
+      const text = fortuneText.textContent; // Obtener la frase aleatoria generada
+      const x = canvas.width / 2;
+      const y = canvas.height / 2;
 
-  const text = fortuneText.textContent;
-  const x = canvas.width / 2;
-  const y = canvas.height / 2;
+      // Ajustar el texto para que se divida en líneas si es muy largo
+      const maxWidth = canvas.width - 40; // Ajusta el ancho máximo según sea necesario
+      const lineHeightFactor = 1.5;
+      const lineHeight = 50; // Ajusta la altura de la línea según sea necesario
+      const lines = wrapText(ctx, text, x, y, maxWidth, lineHeight);
 
-  // Ajustar el texto para que se divida en líneas si es muy largo
-  const maxWidth = canvas.width - 40; // Ajusta el ancho máximo según sea necesario
-  const lineHeight = 50; // Ajusta la altura de la línea según sea necesario
-  const lines = wrapText(ctx, text, x, y, maxWidth, lineHeight);
+      // Calcular la posición y para cada línea de texto
+      lines.forEach((line, i) => {
+        const offsetY = i * lineHeight * lineHeightFactor;
+        ctx.fillText(line, x, y + offsetY);
+      });
 
-  // Dibujar cada línea de texto en el canvas
-  lines.forEach((line, i) => {
-    ctx.fillText(line, x, y - (lines.length / 2 - i) * lineHeight);
+      resolve(); // Resolvemos la promesa después de completar la generación
+    };
+
+    // Manejar errores de carga de la imagen de fondo
+    img.onerror = function () {
+      console.error("Error al cargar la imagen de fondo.");
+      reject("Error al cargar la imagen de fondo.");
+    };
+
+    // Establecer la ruta de la imagen de fondo
+    img.src = "img/bg-img.jpg";
   });
 }
 
@@ -284,7 +304,6 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
 
   lines.push(line.trim());
   return lines;
-
 }
 
 // Cerrar el modal de imagen
