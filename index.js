@@ -13,17 +13,20 @@ function loadFortunes(language) {
 // Obtener los elementos del DOM
 const generateButton = document.querySelector(".generate-phrase");
 const fortuneText = document.getElementById("fortune-text");
-const modal = document.getElementById("fortuneModal");
-const closeModal = document.querySelector(".close");
+const modalF = document.getElementById("fortuneModal");
+const closeModalF = document.querySelector(".close-fortune");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const shareButton = document.getElementById("share-button");
-const viewButton = document.getElementById("view-button"); // Añadido: Obtener el botón de "Ver"
+const viewButton = document.getElementById("view-button"); 
+const closeModal = document.querySelector(".close");
+const languageSwitch = document.getElementById("languageSwitch");
 
 // Función para cargar y aplicar la traducción
 function loadLanguage(language) {
   const script = document.createElement("script");
-  script.src = language === "es" ? "fortuneMessagesEs.js" : "fortuneMessagesEn.js";
+  script.src =
+    language === "es" ? "fortuneMessagesEs.js" : "fortuneMessagesEn.js";
   document.head.appendChild(script);
   script.onload = () => {
     loadFortunes(language);
@@ -39,10 +42,12 @@ function generateRandomFortune() {
   const randomFortune = fortuneMessages[currentFortuneIndex];
   if (randomFortune) {
     fortuneText.textContent = `"${randomFortune}"`;
-    localStorage.setItem('todayFortuneIndex', currentFortuneIndex); // Guardar el índice de la fortuna del día
-    localStorage.setItem('fortuneDate', new Date().toISOString().split('T')[0]); // Guardar la fecha de hoy
+    localStorage.setItem("todayFortuneIndex", currentFortuneIndex); // Guardar el índice de la fortuna del día
+    localStorage.setItem("fortuneDate", new Date().toISOString().split("T")[0]); // Guardar la fecha de hoy
   } else {
-    console.error('No se pudo generar una fortuna. Verifique que las frases estén cargadas correctamente.');
+    console.error(
+      "No se pudo generar una fortuna. Verifique que las frases estén cargadas correctamente."
+    );
   }
   showShareButton(); // Mostrar el botón de compartir
 }
@@ -56,8 +61,7 @@ function displayTodayFortune() {
   if (savedIndex !== null && savedDate === today) {
     currentFortuneIndex = parseInt(savedIndex, 10);
     fortuneText.textContent = `"${fortuneMessages[currentFortuneIndex]}"`;
-  } else {
-    generateRandomFortune();
+    showShareButton(); // Mostrar el botón de compartir si ya se ha revelado la fortuna
   }
 }
 
@@ -81,25 +85,29 @@ function setFortuneOpenedToday() {
 // Función para manejar el clic en el botón "Revelar"
 function handleButtonClick() {
   if (checkFortuneOpenedToday()) {
-    modal.style.display = "flex";
+    // Mostrar el modal si la fortuna ya fue revelada hoy
+    modalF.style.display = "flex";
   } else {
+    // Generar y mostrar una nueva fortuna
     generateRandomFortune();
     setFortuneOpenedToday();
+    languageSwitch.disabled = true; // Deshabilitar el cambio de idioma
+    languageSwitch.classList.add("disabled"); // Añadir clase para estilo en escala de grises
+    generateButton.disabled = false; // Habilitar el botón de revelar
   }
 }
-
 // Añadir un evento de escucha al botón "Revelar"
 generateButton.addEventListener("click", handleButtonClick);
 
 // Función para cerrar el modal
-closeModal.addEventListener("click", () => {
-  modal.style.display = "none";
+closeModalF.addEventListener("click", () => {
+  modalF.style.display = "none";
 });
 
 // Cerrar el modal si se hace clic fuera de él
 window.addEventListener("click", (event) => {
-  if (event.target === modal) {
-    modal.style.display = "none";
+  if (event.target === modalF) {
+    modalF.style.display = "none";
   }
 });
 
@@ -112,6 +120,16 @@ function setLanguage(language) {
 document.addEventListener("DOMContentLoaded", () => {
   const preferredLanguage = localStorage.getItem("language") || "es";
   loadLanguage(preferredLanguage);
+  displayTodayFortune(); // Mostrar la fortuna del día si ya existe
+  const today = new Date().toISOString().split("T")[0];
+  const savedDate = localStorage.getItem("fortuneDate");
+
+  // Deshabilitar el cambio de idioma si ya se ha revelado la fortuna hoy
+  if (savedDate === today) {
+    languageSwitch.disabled = true;
+    languageSwitch.classList.add("disabled");
+    generateButton.disabled = true;
+  }
 });
 
 // Verificar que las frases se carguen correctamente al cambiar el idioma
@@ -131,7 +149,7 @@ function loadLanguage(language) {
 
 // Función para traducir la fortuna del día
 function translateFortune() {
-  const savedIndex = localStorage.getItem('todayFortuneIndex');
+  const savedIndex = localStorage.getItem("todayFortuneIndex");
   if (savedIndex !== null) {
     const index = parseInt(savedIndex, 10);
     fortuneText.textContent = `"${fortuneMessages[index]}"`;
@@ -139,15 +157,42 @@ function translateFortune() {
 }
 
 // Manejar el cambio de idioma
-document.getElementById("languageSwitch").addEventListener("change", (event) => {
-  const language = event.target.checked ? "en" : "es";
-  setLanguage(language);
-  document.getElementById("languageSwitch").setAttribute("data-label", language.toUpperCase());
-});
+document
+  .getElementById("languageSwitch")
+  .addEventListener("change", (event) => {
+    const language = event.target.checked ? "en" : "es";
+    setLanguage(language);
+    document
+      .getElementById("languageSwitch")
+      .setAttribute("data-label", language.toUpperCase());
+  });
 
 // Función para mostrar el botón de compartir
 function showShareButton() {
-  shareButton.style.display = "block";
+  shareButton.style.display = "inline-block";
+  viewButton.style.display = "inline-block";
+}
+
+// Función para obtener el nombre del archivo de acuerdo al idioma y la fecha
+function getFilename() {
+  const language = localStorage.getItem("language") || "es";
+  const date = new Date();
+  let formattedDate;
+
+  if (language === "es") {
+    // Formato de fecha para español: dd/mm/yy
+    formattedDate = `${("0" + date.getDate()).slice(-2)}/${(
+      "0" +
+      (date.getMonth() + 1)
+    ).slice(-2)}/${date.getFullYear().toString().slice(-2)}`;
+    return `miFortuna-${formattedDate}.png`;
+  } else {
+    // Formato de fecha para inglés: mm/dd/yy
+    formattedDate = `${("0" + (date.getMonth() + 1)).slice(-2)}/${(
+      "0" + date.getDate()
+    ).slice(-2)}/${date.getFullYear().toString().slice(-2)}`;
+    return `myFortune-${formattedDate}.png`;
+  }
 }
 
 // Añadir evento al botón de compartir
@@ -155,35 +200,47 @@ shareButton.addEventListener("click", () => {
   generateImage(); // Generar la imagen con la fortuna antes de compartir
   canvas.toBlob((blob) => {
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = 'fortune.png';
+    const language = localStorage.getItem("language");
+    const date = new Date().toLocaleDateString(
+      language === "es" ? "es-ES" : "en-US"
+    );
+    const fileName =
+      language === "es" ? `miFortuna-${date}.png` : `myFortune-${date}.png`;
+    a.download = fileName;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
   });
 });
 
-/* // Añadir evento al botón de ver
-if (viewButton) {
-  viewButton.addEventListener("click", () => {
-    generateImage(); // Generar la imagen con la fortuna
-    const imageModal = document.getElementById("imageModal");
-    const modalImage = document.getElementById("modal-image");
-    modalImage.src = canvas.toDataURL(); // Mostrar la imagen generada en el modal
-    imageModal.style.display = "flex";
-  });
-} */
+// Añadir evento al botón de ver para mostrar el modal de imagen
+viewButton.addEventListener("click", () => {
+  generateImage();
+  const imageModal = document.getElementById("imageModal");
+  const modalImage = document.getElementById("modal-image");
+  modalImage.src = canvas.toDataURL(); // Establecer la imagen generada en el modal
+  imageModal.style.display = "flex";
+});
 
 // Función para generar la imagen con el texto aleatorio
 function generateImage() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  // Establecer la escala de reducción
+  const scale = 1; // Por ejemplo, reducir a la mitad
+
+  // Aplicar la escala al canvas y contexto
+  canvas.width = 1080 * scale;
+  canvas.height = 1920 * scale;
+  ctx.scale(scale, scale);
+
   // Estilos para el canvas
   ctx.fillStyle = "gray";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  ctx.font = "48px Arial";
+  ctx.font = "48px Futura";
   ctx.fillStyle = "white";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
@@ -205,18 +262,18 @@ function generateImage() {
 
 // Función para dividir el texto en líneas según el ancho máximo
 function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
-  const words = text.split(' ');
-  let line = '';
+  const words = text.split(" ");
+  let line = "";
   const lines = [];
 
   words.forEach((word) => {
-    const testLine = line + word + ' ';
+    const testLine = line + word + " ";
     const metrics = ctx.measureText(testLine);
     const testWidth = metrics.width;
 
     if (testWidth > maxWidth && line.length > 0) {
       lines.push(line.trim());
-      line = word + ' ';
+      line = word + " ";
     } else {
       line = testLine;
     }
@@ -224,4 +281,19 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
 
   lines.push(line.trim());
   return lines;
+
 }
+
+// Cerrar el modal de imagen
+const imageCloseButton = document.querySelector("#imageModal .close");
+imageCloseButton.addEventListener("click", () => {
+  document.getElementById("imageModal").style.display = "none";
+});
+
+// Cerrar el modal de imagen si se hace clic fuera de él
+window.addEventListener("click", (event) => {
+  const imageModal = document.getElementById("imageModal");
+  if (event.target === imageModal) {
+    imageModal.style.display = "none";
+  }
+});

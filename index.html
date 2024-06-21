@@ -20,6 +20,7 @@
       <div class="circle"></div>
     </div>
 
+    <!-- Intro Frase -->
     <div class="intro">
       <div class="cat">
         <img src="img/cat.png" alt="cat with a fortune cookie" />
@@ -32,20 +33,23 @@
     </div>
     <button class="generate-phrase" id="reveal-button">REVEAL FATE!</button>
 
+    <!-- Fortune Modal -->
+    <div id="fortuneModal" class="fortuneModal">
+      <div id="modal-fortune-content" class="modal-contentF">
+        <span class="close-fortune">&times;</span>
+        <p id="modal-message"></p>
+      </div>
+    </div>
+
     <!-- Contenedor para la imagen generada y botón de compartir -->
     <div class="image-container">
       <canvas id="canvas" width="1080" height="1920"></canvas>
       <button class="share-button" id="share-button" style="display: none">
-        Compartir
+        Descargar
       </button>
-    </div>
-
-    <!-- Fortune Modal -->
-    <div id="fortuneModal" class="modal">
-      <div id="modal-content" class="modal-content">
-        <span class="close">&times;</span>
-        <p id="modal-message"></p>
-      </div>
+      <button class="view-button" id="view-button" style="display: none">
+        Ver
+      </button>
     </div>
 
     <!-- Image modal -->
@@ -58,7 +62,6 @@
           alt="Fortune Image"
           style="max-width: 100%; max-height: 100%"
         />
-        <button class="view-button" id="view-button">Ver</button>
       </div>
     </div>
 
