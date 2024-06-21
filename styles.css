@@ -318,12 +318,11 @@ span.close-fortune {
 }
 
 /** Imagen generada*/
-.image-container {
+.btns-container {
   display: flex;
   justify-content: center; /* Centra los botones horizontalmente */
   gap: 10px; /* Añade un espacio entre los botones */
   text-align: center;
-/*   margin-top: 20px; */
 }
 
 canvas {
@@ -332,7 +331,8 @@ canvas {
   display: none;
 }
 
-.share-button, .view-button {
+#share-button, #view-button {
+  display: none;
   margin-top: 20px;
   padding: 10px 20px;
   font-size: 16px;
@@ -343,7 +343,7 @@ canvas {
   cursor: pointer;
 }
 
-.share-button:hover, .ver-button:hover {
+#share-button:hover, #view-button:hover {
   background-color: #45a049;
 }
 

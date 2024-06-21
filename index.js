@@ -140,7 +140,10 @@ function loadLanguage(language) {
       document.getElementById("title-text").textContent = data.title;
       document.getElementById("slogan").textContent = data.slogan;
       document.getElementById("reveal-button").textContent = data.reveal_button;
-      document.getElementById("modal-message").innerHTML = data.modal_message; // Usar innerHTML para el mensaje del modal
+      document.getElementById("modal-message").innerHTML = data.modal_message; 
+      document.getElementById("share-button").textContent = data.share_button;
+      document.getElementById("view-button").textContent = data.view_button;
+      // Usar innerHTML para el mensaje del modal
       localStorage.setItem("language", language);
       loadFortunes(language); // Cargar las frases según el idioma
       translateFortune(); // Traducir la fortuna del día
