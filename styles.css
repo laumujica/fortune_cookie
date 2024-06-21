@@ -42,7 +42,7 @@ body {
   background-size: 300%;
   background-image: var(--gradient);
   animation: bg-animation 40s infinite;
-/*   overflow: hidden; */
+  /*   overflow: hidden; */
   position: relative;
   z-index: 1;
 }
@@ -59,6 +59,7 @@ body {
   }
 }
 
+/* * Bkg Circles */
 /* Contenedor para los círculos de fondo */
 .background-circles {
   position: fixed;
@@ -139,7 +140,8 @@ body {
 
 /* Animación de movimiento */
 @keyframes move {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate(0, 0);
   }
   25% {
@@ -256,33 +258,20 @@ button.generate-phrase:focus {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
-  z-index: 1000; /* Z-index alto para estar sobre el contenido */
-  justify-content: center; /* Centrar contenido verticalmente */
-  align-items: center; /* Centrar contenido horizontalmente */
-}
-
-.modalFortune {
-  display: none; 
-  position: fixed; /* Stay in place */
-  z-index: 1000; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: hidden; /* Disable scroll */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
   justify-content: center;
   align-items: center;
+  overflow: hidden; /* Disable scroll */
 }
 
 #modal-fortune-content {
   background-color: var(--white-color);
   border: 1px solid #888;
-  max-width: 30rem; 
+  max-width: 30rem;
   padding: 20px 30px 30px 20px;
   border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   text-align: center;
   animation: fadeIn 0.3s ease-in-out;
   font-size: 1.3rem;
@@ -291,8 +280,12 @@ button.generate-phrase:focus {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 span.close-fortune {
@@ -309,7 +302,7 @@ span.close-fortune {
   color: black;
   text-decoration: none;
   cursor: pointer;
-} 
+}
 
 #modal-message {
   font-size: 18px;
@@ -320,8 +313,8 @@ span.close-fortune {
 /** Imagen generada*/
 .btns-container {
   display: flex;
-  justify-content: center; /* Centra los botones horizontalmente */
-  gap: 10px; /* Añade un espacio entre los botones */
+  justify-content: center;
+  gap: 10px;
   text-align: center;
 }
 
@@ -331,41 +324,54 @@ canvas {
   display: none;
 }
 
-#share-button, #view-button {
+#share-button,
+#view-button {
   display: none;
   margin-top: 20px;
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #4CAF50;
-  color: white;
+  background-color: var(--high-color);
+  color: var(--bg-color);
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-family: "futura";
+  font-weight: 100;
 }
 
-#share-button:hover, #view-button:hover {
-  background-color: #45a049;
+#share-button:hover,
+#view-button:hover {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  transform: scale(1.1);
+  font-weight: 500;
+}
+
+#share-button:active,
+#view-button:active {
+  background-color: var(--light-color);
+  color: var(--white-color);
+  transform: scale(1.1);
 }
 
 /* Modal de imagen */
 #imageModal {
-  display: none; 
-  position: fixed; 
-  z-index: 1; 
+  display: none;
+  position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto; 
-  background-color: rgba(0,0,0,0.4); 
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 #modal-image-content {
-  margin: 15% auto; 
-  padding: 20px;
+  margin: 0 auto;
   background-color: #fefefe;
   border: 1px solid #888;
-  width: 80%;
+  width: 60rem;
 }
 
 .close {
@@ -403,7 +409,7 @@ canvas {
 
 /*? Modal styles image*/
 .modal {
-  display: none; 
+  display: none;
   position: fixed; /* Stay in place */
   z-index: 1000; /* Sit on top */
   left: 0;
@@ -419,10 +425,10 @@ canvas {
 #modal-content {
   background-color: var(--white-color);
   border: 1px solid #888;
-  max-width: 30rem; 
+  max-width: 30rem;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   text-align: center;
   animation: fadeIn 0.3s ease-in-out;
   font-size: 1.3rem;
@@ -446,8 +452,12 @@ canvas {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Dropdown Menu */
@@ -456,7 +466,6 @@ canvas {
   top: 3rem;
   right: 100rem;
 }
-
 
 .language-selector:hover .dropdown-content {
   display: block;
@@ -476,7 +485,7 @@ canvas {
   height: calc(var(--s) + var(--s) / 2);
   width: auto; /* Some browsers need this */
   aspect-ratio: 2;
-/*   border: 4px var(--white-color) solid; */
+  /*   border: 4px var(--white-color) solid; */
   border-radius: var(--s);
   margin: calc(var(--s) / 2);
   display: grid;
@@ -488,11 +497,11 @@ canvas {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  position: relative; 
+  position: relative;
 }
 
 #languageSwitch:before {
-  content: 'ES'; 
+  content: "ES";
   position: absolute;
   top: 50%;
   left: 25%;
@@ -504,15 +513,19 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: calc(var(--s)/10);
-  --_g: radial-gradient(circle closest-side at calc(100% - var(--s)/2) 50%,#000 96%,#0000);
-  background: 
-    var(--_g) 0 / var(--_p, var(--s)) 100% no-repeat content-box,
-    var(--_g) var(--_p, 0) / var(--s) 100% no-repeat content-box,
-    #fff;
+  padding: calc(var(--s) / 10);
+  --_g: radial-gradient(
+    circle closest-side at calc(100% - var(--s) / 2) 50%,
+    #000 96%,
+    #0000
+  );
+  background: var(--_g) 0 / var(--_p, var(--s)) 100% no-repeat content-box,
+    var(--_g) var(--_p, 0) / var(--s) 100% no-repeat content-box, #fff;
   mix-blend-mode: darken;
   transition: 0.4s, background-position 0.4s 0.1s,
-    padding cubic-bezier(0, calc(var(--_i, -1) * 200), 1, calc(var(--_i, -1) * 200)) 0.25s 0.1s,
+    padding
+      cubic-bezier(0, calc(var(--_i, -1) * 200), 1, calc(var(--_i, -1) * 200))
+      0.25s 0.1s,
     left 0.4s, content 0.4s; /* Added transitions for left and content */
 }
 
@@ -521,13 +534,12 @@ canvas {
 }
 
 #languageSwitch:checked:before {
-  content: 'EN'; /* Content when checked */
+  content: "EN"; /* Content when checked */
   left: 75%;
   --_p: 100%;
   --_i: 1;
   padding: calc(var(--s) / 10 + 0.05px) calc(var(--s) / 10);
 }
-
 
 /* CSS de ongoing */
 header {
@@ -609,13 +621,15 @@ h2 {
   height: 45px;
   background: #333;
   border-radius: 50px;
-  transition: transform 0.25s 0.25s cubic-bezier(0, 0, 0.5, 2), width 0.25s cubic-bezier(0, 0, 0.5, 2);
+  transition: transform 0.25s 0.25s cubic-bezier(0, 0, 0.5, 2),
+    width 0.25s cubic-bezier(0, 0, 0.5, 2);
 }
 
 .button:hover::before {
   width: 100%;
   transform: translateX(-18px) translateY(-50%);
-  transition: transform 0.25s cubic-bezier(0, 0, 0.5, 2), width 0.25s 0.25s cubic-bezier(0, 0, 0.5, 2);
+  transition: transform 0.25s cubic-bezier(0, 0, 0.5, 2),
+    width 0.25s 0.25s cubic-bezier(0, 0, 0.5, 2);
 }
 
 .button i {
@@ -636,24 +650,6 @@ h2 {
 }
 
 /* ? Botón ver en JS */
-/* Estilos para el botón Ver */
-.view-button {
-  background-color: #4CAF50; /* Color de fondo */
-  color: white; /* Color del texto */
-  padding: 10px 20px; /* Relleno interno */
-  font-size: 16px; /* Tamaño de fuente */
-  border: none; /* Sin borde */
-  cursor: pointer; /* Cursor apuntador */
-}
-
-.view-button:hover {
-  background-color: #45a049; /* Color de fondo al pasar el mouse */
-}
-
-.view-button:active {
-  background-color: #3e8e41; /* Color de fondo al hacer clic */
-}
-
 /* Modal de Ver */
 /* Estilos para el modal de imagen */
 #imageModal {
@@ -668,19 +664,33 @@ h2 {
   background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
 }
 
-#modal-image-content {
+/* #modal-image-content {
   background-color: var(--white-color);
-  margin: 0 auto; /* Centrado vertical y con margen de 5rem */
+  margin: 0 auto; 
   border: 1px solid #888;
-  width: 20%; /* Ancho del contenido del modal */
-  /* max-width: 800px; */ /* Ancho máximo del contenido */
+  width: 20rem; 
+} */
+
+/* #modal-image-content {
+  margin: 15% auto; 
+  padding: 20px;
+  background-color: #fefefe;
+  border: 1px solid #888;
+  width: 20rem;
+} */
+
+.modal-content {
+  padding: 10px;
+  font-size: 14px;
 }
 
 #modal-image {
   display: block;
   margin: auto;
   max-width: 100%;
-  max-height: calc(50% - 100px); /* Altura máxima del contenido (ajustable según necesidades) */
+  max-height: calc(
+    30% - 100px
+  ); /* Altura máxima del contenido (ajustable según necesidades) */
 }
 
 #modal-image-content .close {
@@ -697,8 +707,6 @@ h2 {
   cursor: pointer;
 }
 
-
-
 /* Bloquear switch */
 .disabled {
   filter: grayscale(100%);
@@ -707,7 +715,7 @@ h2 {
   pointer-events: none; /* Asegura que el botón no reciba eventos de puntero */
 }
 
-/* ! Estilos responsive */
+/* !!!!!!!! Estilos responsive !!!!!!!!!*/
 
 @media screen and (max-width: 768px) {
   header {
@@ -769,13 +777,13 @@ h2 {
   }
 
   #modal-fortune-content {
-    max-width: 20rem; /* Reducir la anchura máxima para dispositivos pequeños */
+    max-width: 18rem;
   }
-}
 
-.modal-content {
-  padding: 15px;
-  font-size: 14px;
+  #modal-image-content {
+    max-width: 18rem;
+    padding: 1.2rem;
+  }
 }
 
 .gif-container img {
@@ -796,13 +804,14 @@ h2 {
   margin: calc(var(--s) / 4); /* Adjust margin for mobile */
 }
 
-#languageSwitch:before, #languageSwitch:checked:before {
+#languageSwitch:before,
+#languageSwitch:checked:before {
   font-size: 0.8em; /* Adjust font size for mobile */
 }
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+@media screen and (min-width: 769px) and (max-width: 1440px) {
   body {
-    font-size: 1rem; 
+    font-size: 1rem;
   }
 
   .cat > img {
@@ -820,17 +829,16 @@ h2 {
   }
 
   .generate-phrase {
-    font-size: 1.1rem; 
+    font-size: 1.1rem;
     padding: 10px 20px;
   }
 
-  .modal-content {
-    width: 90%;
-    padding: 60px;
+  #modal-fortune-content {
+    max-width: 30rem;
   }
 
-  #modal-fortune-content {
-    max-width: 80%; /* Ocupar todo el ancho disponible */
-    padding-bottom: 20px;/* Ajustar el espaciado interno */
+  #modal-image-content {
+    max-width: 20rem;
+    padding: 1rem;
   }
 }
