@@ -233,7 +233,7 @@ viewButton.addEventListener("click", () => {
 });
 
 // Función para generar la imagen con el texto aleatorio
-function generateImage() {
+function generateImage(marginTop) {
   return new Promise((resolve, reject) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -258,8 +258,8 @@ function generateImage() {
       const y = canvas.height / 2;
 
       // Ajustar el texto para que se divida en líneas si es muy largo
-      const maxWidth = canvas.width - 40; // Ajusta el ancho máximo según sea necesario
-      const lineHeightFactor = 1.5;
+      const maxWidth = canvas.width - 100; // Ajusta el ancho máximo según sea necesario
+      const lineHeightFactor = 1.55;
       const lineHeight = 50; // Ajusta la altura de la línea según sea necesario
       const lines = wrapText(ctx, text, x, y, maxWidth, lineHeight);
 
