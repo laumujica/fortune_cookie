@@ -1,4 +1,5 @@
 let fortuneMessages = [];
+let backgroundImage = ""
 let currentFortuneIndex = null;
 
 // Función para cargar las frases según el idioma
@@ -150,7 +151,6 @@ function loadLanguage(language) {
       // Usar innerHTML para el mensaje del modal
       localStorage.setItem("language", language);
       loadFortunes(language); // Cargar las frases según el idioma
-      loadBackgroundImage(language);
       translateFortune(); // Traducir la fortuna del día
     });
 }
