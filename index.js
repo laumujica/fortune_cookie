@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Función para cargar la imagen de fondo según el idioma
 function loadBackgroundImage(language) {
-  return language === "es" ? "img/bg-imgEN.jpg" : "/img/bg-imgES.jpg";
+  return language === "es" ? "img/bg-imgEN.jpg" : "img/bg-imgES.jpg";
 }
 
 // Verificar que las frases se carguen correctamente al cambiar el idioma
