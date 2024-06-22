@@ -1,9 +1,11 @@
 {
+    "backgroundImage": "img/bg-imgES.jpg",  
     "title": "Fortune Cookie",
     "slogan": "¿Qué te deparará el destino? Encontrá tu mensaje del día.",
     "reveal_button": "¡REVELAR!",
     "modal_message": "Ya has abierto tu galleta de la fortuna de hoy. <strong id=\"boldText\">¡Te esperamos mañana! 👋</strong>",
     "share_button": "Descargar",
     "view_button": "Ver"
+    
   }
   

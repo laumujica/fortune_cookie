@@ -111,14 +111,16 @@ window.addEventListener("click", (event) => {
   }
 });
 
+// Función para cambiar el idioma
+function setLanguage(language) {
+  loadLanguage(language);
+}
+
 // Cargar el idioma preferido al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
   const preferredLanguage = localStorage.getItem("language") || "es";
   loadLanguage(preferredLanguage);
-  generateImage(preferredLanguage).then(() => {
-    displayTodayFortune(); // Mostrar la fortuna del día si ya existe
-  });
-  
+  displayTodayFortune(); // Mostrar la fortuna del día si ya existe
   const today = new Date().toISOString().split("T")[0];
   const savedDate = localStorage.getItem("fortuneDate");
 
@@ -129,13 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
     generateButton.disabled = true;
   }
 });
-
-// Función para cargar la imagen de fondo según el idioma
-function loadBackgroundImage(language) {
-  return language === "es" ? "img/bg-imgEN.jpg" : "/img/bg-imgES.jpg";
-}
-
-
 // Verificar que las frases se carguen correctamente al cambiar el idioma
 function loadLanguage(language) {
   fetch(`${language}.json`)
@@ -150,19 +145,8 @@ function loadLanguage(language) {
       // Usar innerHTML para el mensaje del modal
       localStorage.setItem("language", language);
       loadFortunes(language); // Cargar las frases según el idioma
-      loadBackgroundImage(language);
       translateFortune(); // Traducir la fortuna del día
     });
-}
-
-// Función para cargar y establecer el idioma
-function setLanguage(language) {
-  loadLanguage(language);
-
-  // Generar la imagen con el texto aleatorio y la imagen de fondo según el idioma
-  generateImage(language).then(() => {
-    displayTodayFortune(); // Mostrar la fortuna del día si ya existe
-  });
 }
 
 // Función para traducir la fortuna del día
@@ -184,12 +168,6 @@ document
       .getElementById("languageSwitch")
       .setAttribute("data-label", language.toUpperCase());
   });
-
-  // Manejar el cambio de idioma
-  /* languageSwitch.addEventListener("change", (event) => {
-    const language = event.target.checked ? "en" : "es"; 
-    setLanguage(language); 
-  }); */
 
 // Función para mostrar el botón de compartir
 function showShareButton() {
@@ -258,8 +236,13 @@ function generateImage(language) {
   return new Promise((resolve, reject) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Obtener la imagen de fondo según el idioma
-    const backgroundImage = loadBackgroundImage(language);
+    // Determinar la imagen de fondo según el idioma
+    let backgroundImage;
+    if (language === "es") {
+      backgroundImage = "img/bg-img.jpg"; // Imagen de fondo para español
+    } else {
+      backgroundImage = "img/bg-imgEN.jpg"; // Imagen de fondo para inglés
+    }
 
     // Crear una nueva imagen de fondo
     const img = new Image();
@@ -303,7 +286,7 @@ function generateImage(language) {
     };
 
     // Establecer la ruta de la imagen de fondo
-    img.src = backgroundImage;
+    img.src = "img/bg-imgES.jpg";
   });
 }
 
