@@ -1,5 +1,5 @@
 let fortuneMessages = [];
-let backgroundImage = ""
+let backgroundImage = "";
 let currentFortuneIndex = null;
 
 // Función para cargar las frases según el idioma
@@ -97,6 +97,7 @@ function handleButtonClick() {
     generateButton.disabled = false; // Habilitar el botón de revelar
   }
 }
+
 // Añadir un evento de escucha al botón "Revelar"
 generateButton.addEventListener("click", handleButtonClick);
 
@@ -135,7 +136,6 @@ document.addEventListener("DOMContentLoaded", () => {
 function loadBackgroundImage(language) {
   return language === "es" ? "img/bg-imgEN.jpg" : "/img/bg-imgES.jpg";
 }
-
 
 // Verificar que las frases se carguen correctamente al cambiar el idioma
 function loadLanguage(language) {
@@ -184,12 +184,6 @@ document
       .getElementById("languageSwitch")
       .setAttribute("data-label", language.toUpperCase());
   });
-
-  // Manejar el cambio de idioma
-  /* languageSwitch.addEventListener("change", (event) => {
-    const language = event.target.checked ? "en" : "es"; 
-    setLanguage(language); 
-  }); */
 
 // Función para mostrar el botón de compartir
 function showShareButton() {
