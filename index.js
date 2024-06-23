@@ -358,14 +358,14 @@ function generateImage(language) {
 
       // Obtener los números generados y dibujarlos en la imagen
       const fortuneNumbers = document.querySelectorAll("#fortune-numbers span");
-      const numbersY = canvas.height - 800; // Ajusta la posición vertical de los números
+      const numbersY = canvas.height - 600; // Ajusta la posición vertical de los números
 
       // Convertir fortuneNumbers en un array para poder usar forEach
       Array.from(fortuneNumbers).forEach((span, index) => {
         const number = span.textContent;
-        ctx.font = "30px Futura"; // Ajustar el tamaño de la fuente para los números
+        ctx.font = "40px Futura"; // Ajustar el tamaño de la fuente para los números
         ctx.fillStyle = "lemonchiffon";
-        const numbersX = canvas.width / 2 + (index - 2.5) * 60; // Ajustar la posición horizontal de cada número
+        const numbersX = canvas.width / 2 + (index - 2.5) * 100; // Ajustar la posición horizontal de cada número
         ctx.fillText(number, numbersX, numbersY);
       });
 

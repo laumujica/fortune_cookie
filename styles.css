@@ -215,7 +215,7 @@ body {
 
 #fortune-numbers {
   display: flex;
-  gap: 1.2rem; /* Ajusta el valor según sea necesario */
+  gap: 1.3rem; /* Ajusta el valor según sea necesario */
 }
 /* fin */
 
