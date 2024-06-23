@@ -28,6 +28,7 @@ html {
   --light-color: #ea698b;
   --white-color: #ffffff;
   --high-color: #ffed6c;
+  --numbers-color: #fffacd;
 }
 
 body {
@@ -168,7 +169,7 @@ body {
 }
 
 .fortune {
-  margin: 20px 0;
+  margin: 0 0 5px 0;
 }
 
 #title-text {
@@ -203,6 +204,20 @@ body {
   font-style: italic;
   padding-bottom: 5rem;
 }
+
+/* ! numbers */
+.numbers {
+  font-size: 0.9rem;
+  color: var(--numbers-color);
+  display: flex; 
+  justify-content: center; 
+}
+
+#fortune-numbers {
+  display: flex;
+  gap: 1.2rem; /* Ajusta el valor según sea necesario */
+}
+/* fin */
 
 .generate-phrase {
   font-family: "futura";

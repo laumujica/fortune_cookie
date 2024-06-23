@@ -37,7 +37,17 @@ function loadLanguage(language) {
   };
 }
 
-// Función para generar y mostrar una fortuna aleatoria
+// Función para generar números aleatorios del 00 al 99
+function generateRandomNumbers() {
+  const numbers = [];
+  for (let i = 0; i < 6; i++) {
+    let number = Math.floor(Math.random() * 100);
+    numbers.push(number < 10 ? "0" + number : number);
+  }
+  return numbers;
+}
+
+// Función para generar y mostrar una fortuna aleatoria junto con números aleatorios
 function generateRandomFortune() {
   currentFortuneIndex = Math.floor(Math.random() * fortuneMessages.length);
   const randomFortune = fortuneMessages[currentFortuneIndex];
@@ -50,6 +60,53 @@ function generateRandomFortune() {
       "No se pudo generar una fortuna. Verifique que las frases estén cargadas correctamente."
     );
   }
+
+  // Limpiar el contenido anterior
+  fortuneNumbers.innerHTML = "";
+
+  // Crear spans para cada número
+  randomNumbers.forEach((number) => {
+    const span = document.createElement("span");
+    span.textContent = number;
+    span.classList.add("fortune-number"); // Añadir una clase para aplicar estilo
+    fortuneNumbers.appendChild(span);
+  });
+
+  localStorage.setItem("todayFortuneNumbers", randomNumbers.join(" ")); // Guardar los números en el almacenamiento local
+
+  showShareButton(); // Mostrar el botón de compartir
+}
+
+// Función para generar y mostrar una fortuna aleatoria junto con números aleatorios
+function generateRandomFortune() {
+  currentFortuneIndex = Math.floor(Math.random() * fortuneMessages.length);
+  const randomFortune = fortuneMessages[currentFortuneIndex];
+  if (randomFortune) {
+    fortuneText.textContent = `"${randomFortune}"`;
+    localStorage.setItem("todayFortuneIndex", currentFortuneIndex); // Guardar el índice de la fortuna del día
+    localStorage.setItem("fortuneDate", new Date().toISOString().split("T")[0]); // Guardar la fecha de hoy
+  } else {
+    console.error(
+      "No se pudo generar una fortuna. Verifique que las frases estén cargadas correctamente."
+    );
+  }
+
+  // Generar números aleatorios y mostrarlos
+  const randomNumbers = generateRandomNumbers();
+  const fortuneNumbers = document.getElementById("fortune-numbers");
+
+  // Limpiar el contenido anterior
+  fortuneNumbers.innerHTML = "";
+
+  // Crear spans para cada número
+  randomNumbers.forEach((number) => {
+    const span = document.createElement("span");
+    span.textContent = number;
+    fortuneNumbers.appendChild(span);
+  });
+
+  localStorage.setItem("todayFortuneNumbers", randomNumbers.join(" ")); // Guardar los números en el almacenamiento local
+
   showShareButton(); // Mostrar el botón de compartir
 }
 
@@ -63,6 +120,12 @@ function displayTodayFortune() {
     currentFortuneIndex = parseInt(savedIndex, 10);
     fortuneText.textContent = `"${fortuneMessages[currentFortuneIndex]}"`;
     showShareButton(); // Mostrar el botón de compartir si ya se ha revelado la fortuna
+
+    // Mostrar los números aleatorios guardados
+    const savedNumbers = localStorage.getItem("todayFortuneNumbers");
+    if (savedNumbers) {
+      document.getElementById("fortune-numbers").textContent = savedNumbers;
+    }
   }
 }
 
@@ -120,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
   generateImage(preferredLanguage).then(() => {
     displayTodayFortune(); // Mostrar la fortuna del día si ya existe
   });
-  
+
   const today = new Date().toISOString().split("T")[0];
   const savedDate = localStorage.getItem("fortuneDate");
 
@@ -171,6 +234,12 @@ function translateFortune() {
   if (savedIndex !== null) {
     const index = parseInt(savedIndex, 10);
     fortuneText.textContent = `"${fortuneMessages[index]}"`;
+
+    // Mostrar los números aleatorios guardados
+    const savedNumbers = localStorage.getItem("todayFortuneNumbers");
+    if (savedNumbers) {
+      document.getElementById("fortune-numbers").textContent = savedNumbers;
+    }
   }
 }
 
@@ -247,7 +316,7 @@ viewButton.addEventListener("click", () => {
   });
 });
 
-// Función para generar la imagen con el texto aleatorio
+// Función para generar la imagen con el texto aleatorio y los números
 function generateImage(language) {
   return new Promise((resolve, reject) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -273,7 +342,7 @@ function generateImage(language) {
 
       const text = fortuneText.textContent; // Obtener la frase aleatoria generada
       const x = canvas.width / 2;
-      const y = canvas.height / 2;
+      const y = canvas.height / 2 - 40; // Ajustar la posición vertical del texto
 
       // Ajustar el texto para que se divida en líneas si es muy largo
       const maxWidth = canvas.width - 100; // Ajusta el ancho máximo según sea necesario
@@ -285,6 +354,19 @@ function generateImage(language) {
       lines.forEach((line, i) => {
         const offsetY = i * lineHeight * lineHeightFactor;
         ctx.fillText(line, x, y + offsetY);
+      });
+
+      // Obtener los números generados y dibujarlos en la imagen
+      const fortuneNumbers = document.querySelectorAll("#fortune-numbers span");
+      const numbersY = canvas.height - 800; // Ajusta la posición vertical de los números
+
+      // Convertir fortuneNumbers en un array para poder usar forEach
+      Array.from(fortuneNumbers).forEach((span, index) => {
+        const number = span.textContent;
+        ctx.font = "30px Futura"; // Ajustar el tamaño de la fuente para los números
+        ctx.fillStyle = "lemonchiffon";
+        const numbersX = canvas.width / 2 + (index - 2.5) * 60; // Ajustar la posición horizontal de cada número
+        ctx.fillText(number, numbersX, numbersY);
       });
 
       resolve(); // Resolvemos la promesa después de completar la generación
@@ -300,6 +382,7 @@ function generateImage(language) {
     img.src = backgroundImage;
   });
 }
+
 
 // Función para dividir el texto en líneas según el ancho máximo
 function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
