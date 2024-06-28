@@ -22,20 +22,6 @@ const viewButton = document.getElementById("view-button");
 const closeModal = document.querySelector(".close");
 const languageSwitch = document.getElementById("languageSwitch");
 
-// Función para cargar y aplicar la traducción
-function loadLanguage(language) {
-  const script = document.createElement("script");
-  script.src =
-    language === "es" ? "fortuneMessagesEs.js" : "fortuneMessagesEn.js";
-  document.head.appendChild(script);
-  script.onload = () => {
-    loadFortunes(language);
-    localStorage.setItem("language", language);
-    updateUIWithTranslations(language); // Función para actualizar la UI con las traducciones
-    displayTodayFortune(); // Mostrar la fortuna del día si ya existe
-  };
-}
-
 // Función para generar números aleatorios del 00 al 99 sin duplicados
 function generateRandomNumbers() {
   const numbers = new Set();
@@ -132,12 +118,19 @@ function setFortuneOpenedToday() {
   }
 }
 
-// Función para manejar el clic en el botón "Revelar"
 function handleButtonClick() {
   if (checkFortuneOpenedToday()) {
     // Mostrar el modal si la fortuna ya fue revelada hoy
     modalF.style.display = "flex";
   } else {
+    // Ocultar reveal-message
+    document.getElementById("reveal-message").style.display = "none";
+
+    // Mostrar fortune-text y limpiar contenido anterior si es necesario
+    const fortuneText = document.getElementById("fortune-text");
+    fortuneText.style.display = "block";
+    fortuneText.textContent = ""; // Limpiar contenido anterior si lo hubiera
+
     // Generar y mostrar una nueva fortuna
     generateRandomFortune();
     setFortuneOpenedToday();
@@ -146,6 +139,9 @@ function handleButtonClick() {
     generateButton.disabled = false; // Habilitar el botón de revelar
   }
 }
+
+
+
 
 // Añadir un evento de escucha al botón "Revelar"
 generateButton.addEventListener("click", handleButtonClick);
@@ -181,14 +177,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-  // Función para cargar la imagen de fondo según el idioma
+// Función para cargar la imagen de fondo según el idioma
 function loadBackgroundImage(language) {
-  if (language === 'es') {
-    return 'img/bg-imgES.jpg'; // Ruta de la imagen en español
-  } else if (language === 'en') {
-    return 'img/bg-imgEN.jpg'; // Ruta de la imagen en inglés
+  if (language === "es") {
+    return "img/bg-imgES.jpg"; // Ruta de la imagen en español
+  } else if (language === "en") {
+    return "img/bg-imgEN.jpg"; // Ruta de la imagen en inglés
   } else {
-    return 'img/bg-imgES.jpg'; // Ruta de la imagen por defecto
+    return "img/bg-imgES.jpg"; // Ruta de la imagen por defecto
   }
 }
 
@@ -203,12 +199,32 @@ function loadLanguage(language) {
       document.getElementById("modal-message").innerHTML = data.modal_message;
       document.getElementById("share-button").textContent = data.share_button;
       document.getElementById("view-button").textContent = data.view_button;
-      fortuneText.textContent = data.reveal_message;
+      document.getElementById("reveal-message").textContent =
+        data.reveal_message;
+      /* fortuneText.textContent = data.reveal_message;
+       */
+      // Cargar la imagen de fondo según el idioma
+      const backgroundImage = data.background_image || "img/bg-imgES.jpg"; // Puedes usar una imagen por defecto
+      setBackgroundImage(backgroundImage);
+
       // Usar innerHTML para el mensaje del modal
       localStorage.setItem("language", language);
       loadFortunes(language); // Cargar las frases según el idioma
       translateFortune(); // Traducir la fortuna del día
     });
+}
+
+// Imagen mepa
+function setBackgroundImage(imagePath) {
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+  const img = new Image();
+  img.onload = function () {
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  };
+  img.src = imagePath;
 }
 
 // Función para cargar y establecer el idioma
@@ -310,12 +326,11 @@ viewButton.addEventListener("click", () => {
 });
 
 // Función para generar la imagen con el texto aleatorio y los números
-function generateImage(language) {
+function generateImage() {
+  const language = localStorage.getItem("language") || "en";
+  const backgroundImage = loadBackgroundImage(language);
   return new Promise((resolve, reject) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Obtener la imagen de fondo según el idioma
-    const backgroundImage = loadBackgroundImage(language);
 
     // Crear una nueva imagen de fondo
     const img = new Image();
@@ -377,7 +392,6 @@ function generateImage(language) {
     img.src = backgroundImage;
   });
 }
-
 
 // Función para dividir el texto en líneas según el ancho máximo
 function wrapText(ctx, text, x, y, maxWidth, lineHeight) {

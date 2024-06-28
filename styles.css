@@ -199,10 +199,20 @@ body {
 }
 
 #fortune-text {
+  display: none;
   height: 3rem;
   color: rgba(255, 255, 255, 0.9);
   font-style: italic;
+  /* padding-bottom: 5rem; */
+}
+
+#reveal-message {
+  font-size: 1.2rem;
+  height: 2rem;
+  color: #c7c6c6;
+  font-style: italic;
   padding-bottom: 5rem;
+
 }
 
 /* ! numbers */
@@ -263,6 +273,10 @@ button.generate-phrase:focus {
   70% {
     transform: rotate(2deg);
   }
+}
+
+.reveal_message {
+  color: red;
 }
 
 /* * Fortune */
@@ -846,7 +860,6 @@ h2 {
 
   #fortune-text {
     font-size: 1.3rem;
-    max-width: 8rem;
     line-height: 1;
   }
 
