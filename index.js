@@ -1,5 +1,4 @@
 let fortuneMessages = [];
-let backgroundImage = "";
 let currentFortuneIndex = null;
 
 // Función para cargar las frases según el idioma
@@ -37,44 +36,15 @@ function loadLanguage(language) {
   };
 }
 
-// Función para generar números aleatorios del 00 al 99
+// Función para generar números aleatorios del 00 al 99 sin duplicados
 function generateRandomNumbers() {
-  const numbers = [];
-  for (let i = 0; i < 6; i++) {
+  const numbers = new Set();
+  while (numbers.size < 6) {
     let number = Math.floor(Math.random() * 100);
-    numbers.push(number < 10 ? "0" + number : number);
+    if (number < 10) number = "0" + number;
+    numbers.add(number.toString());
   }
-  return numbers;
-}
-
-// Función para generar y mostrar una fortuna aleatoria junto con números aleatorios
-function generateRandomFortune() {
-  currentFortuneIndex = Math.floor(Math.random() * fortuneMessages.length);
-  const randomFortune = fortuneMessages[currentFortuneIndex];
-  if (randomFortune) {
-    fortuneText.textContent = `"${randomFortune}"`;
-    localStorage.setItem("todayFortuneIndex", currentFortuneIndex); // Guardar el índice de la fortuna del día
-    localStorage.setItem("fortuneDate", new Date().toISOString().split("T")[0]); // Guardar la fecha de hoy
-  } else {
-    console.error(
-      "No se pudo generar una fortuna. Verifique que las frases estén cargadas correctamente."
-    );
-  }
-
-  // Limpiar el contenido anterior
-  fortuneNumbers.innerHTML = "";
-
-  // Crear spans para cada número
-  randomNumbers.forEach((number) => {
-    const span = document.createElement("span");
-    span.textContent = number;
-    span.classList.add("fortune-number"); // Añadir una clase para aplicar estilo
-    fortuneNumbers.appendChild(span);
-  });
-
-  localStorage.setItem("todayFortuneNumbers", randomNumbers.join(" ")); // Guardar los números en el almacenamiento local
-
-  showShareButton(); // Mostrar el botón de compartir
+  return Array.from(numbers);
 }
 
 // Función para generar y mostrar una fortuna aleatoria junto con números aleatorios
@@ -126,6 +96,11 @@ function displayTodayFortune() {
     if (savedNumbers) {
       document.getElementById("fortune-numbers").textContent = savedNumbers;
     }
+  } else {
+    // Mostrar un mensaje indicando que se necesita revelar la nueva fortuna del día
+    fortuneText.textContent = fortuneMessages.reveal_message;
+    document.getElementById("fortune-numbers").textContent = ""; // Limpiar números anteriores si es necesario
+    hideShareButton(); // Esconder el botón de compartir si no hay fortuna del día
   }
 }
 
@@ -137,6 +112,7 @@ function checkFortuneOpenedToday() {
   const lastOpenedDate = new Date(lastOpened);
   const today = new Date();
 
+  // Comparar solo por día, ignorando la hora para que sea válido durante 24 horas
   return lastOpenedDate.toDateString() === today.toDateString();
 }
 
@@ -144,6 +120,16 @@ function checkFortuneOpenedToday() {
 function setFortuneOpenedToday() {
   const today = new Date();
   localStorage.setItem("fortuneLastOpened", today.toString());
+
+  // Eliminar la fortuna anterior si ya ha pasado el día
+  const savedDate = localStorage.getItem("fortuneDate");
+  const todayDate = today.toISOString().split("T")[0];
+
+  if (savedDate !== todayDate) {
+    localStorage.removeItem("todayFortuneIndex");
+    localStorage.removeItem("fortuneDate");
+    localStorage.removeItem("todayFortuneNumbers");
+  }
 }
 
 // Función para manejar el clic en el botón "Revelar"
@@ -195,9 +181,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Función para cargar la imagen de fondo según el idioma
+  // Función para cargar la imagen de fondo según el idioma
 function loadBackgroundImage(language) {
-  return language === "es" ? "img/bg-imgEN.jpg" : "img/bg-imgES.jpg";
+  if (language === 'es') {
+    return 'img/bg-imgES.jpg'; // Ruta de la imagen en español
+  } else if (language === 'en') {
+    return 'img/bg-imgEN.jpg'; // Ruta de la imagen en inglés
+  } else {
+    return 'img/bg-imgES.jpg'; // Ruta de la imagen por defecto
+  }
 }
 
 // Verificar que las frases se carguen correctamente al cambiar el idioma
@@ -211,6 +203,7 @@ function loadLanguage(language) {
       document.getElementById("modal-message").innerHTML = data.modal_message;
       document.getElementById("share-button").textContent = data.share_button;
       document.getElementById("view-button").textContent = data.view_button;
+      fortuneText.textContent = data.reveal_message;
       // Usar innerHTML para el mensaje del modal
       localStorage.setItem("language", language);
       loadFortunes(language); // Cargar las frases según el idioma
@@ -351,9 +344,11 @@ function generateImage(language) {
       const lines = wrapText(ctx, text, x, y, maxWidth, lineHeight);
 
       // Calcular la posición y para cada línea de texto
+      let textHeight = 0;
       lines.forEach((line, i) => {
         const offsetY = i * lineHeight * lineHeightFactor;
         ctx.fillText(line, x, y + offsetY);
+        textHeight = offsetY + lineHeight; // Actualizar la altura del texto
       });
 
       // Obtener los números generados y dibujarlos en la imagen
