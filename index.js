@@ -21,6 +21,9 @@ const shareButton = document.getElementById("share-button");
 const viewButton = document.getElementById("view-button");
 const closeModal = document.querySelector(".close");
 const languageSwitch = document.getElementById("languageSwitch");
+const revealMessageElement = document.getElementById('reveal-message');
+const fortuneNumbersElement = document.getElementById('fortune-numbers');
+
 
 // Función para generar números aleatorios del 00 al 99 sin duplicados
 function generateRandomNumbers() {
@@ -49,16 +52,16 @@ function generateRandomFortune() {
 
   // Generar números aleatorios y mostrarlos
   const randomNumbers = generateRandomNumbers();
-  const fortuneNumbers = document.getElementById("fortune-numbers");
-
+  
   // Limpiar el contenido anterior
-  fortuneNumbers.innerHTML = "";
+  fortuneNumbersElement.innerHTML = "";
 
   // Crear spans para cada número
   randomNumbers.forEach((number) => {
     const span = document.createElement("span");
     span.textContent = number;
-    fortuneNumbers.appendChild(span);
+    span.classList.add("number-style"); // Asignar la clase de estilo
+    fortuneNumbersElement.appendChild(span);
   });
 
   localStorage.setItem("todayFortuneNumbers", randomNumbers.join(" ")); // Guardar los números en el almacenamiento local
@@ -80,15 +83,28 @@ function displayTodayFortune() {
     // Mostrar los números aleatorios guardados
     const savedNumbers = localStorage.getItem("todayFortuneNumbers");
     if (savedNumbers) {
-      document.getElementById("fortune-numbers").textContent = savedNumbers;
+      const numbersArray = savedNumbers.split(" ");
+      fortuneNumbersElement.innerHTML = ""; // Limpiar contenido previo
+
+      numbersArray.forEach((number) => {
+        const span = document.createElement("span");
+        span.textContent = number;
+        span.classList.add("number-style"); // Asignar la clase de estilo
+        fortuneNumbersElement.appendChild(span);
+      });
     }
+    revealMessageElement.style.display = 'none';
+    fortuneText.style.display = 'block';
   } else {
     // Mostrar un mensaje indicando que se necesita revelar la nueva fortuna del día
     fortuneText.textContent = fortuneMessages.reveal_message;
-    document.getElementById("fortune-numbers").textContent = ""; // Limpiar números anteriores si es necesario
+    fortuneNumbersElement.textContent = ""; // Limpiar números anteriores si es necesario
     hideShareButton(); // Esconder el botón de compartir si no hay fortuna del día
+    revealMessageElement.style.display = 'block';
+    fortuneText.style.display = 'none';
   }
 }
+
 
 // Función para comprobar si la galleta de la fortuna ya fue abierta hoy
 function checkFortuneOpenedToday() {
@@ -118,30 +134,24 @@ function setFortuneOpenedToday() {
   }
 }
 
+
+// Función para manejar el clic en el botón "Revelar"
 function handleButtonClick() {
   if (checkFortuneOpenedToday()) {
     // Mostrar el modal si la fortuna ya fue revelada hoy
     modalF.style.display = "flex";
   } else {
-    // Ocultar reveal-message
-    document.getElementById("reveal-message").style.display = "none";
-
-    // Mostrar fortune-text y limpiar contenido anterior si es necesario
-    const fortuneText = document.getElementById("fortune-text");
-    fortuneText.style.display = "block";
-    fortuneText.textContent = ""; // Limpiar contenido anterior si lo hubiera
-
     // Generar y mostrar una nueva fortuna
     generateRandomFortune();
     setFortuneOpenedToday();
     languageSwitch.disabled = true; // Deshabilitar el cambio de idioma
     languageSwitch.classList.add("disabled"); // Añadir clase para estilo en escala de grises
     generateButton.disabled = false; // Habilitar el botón de revelar
+    // Ocultar el mensaje de revelación y mostrar la fortuna
+    revealMessageElement.style.display = 'none';
+    fortuneText.style.display = 'block';
   }
 }
-
-
-
 
 // Añadir un evento de escucha al botón "Revelar"
 generateButton.addEventListener("click", handleButtonClick);
@@ -176,6 +186,9 @@ document.addEventListener("DOMContentLoaded", () => {
     generateButton.disabled = true;
   }
 });
+
+// Función para cargar la fortuna del día al abrir la página
+document.addEventListener('DOMContentLoaded', displayTodayFortune);
 
 // Función para cargar la imagen de fondo según el idioma
 function loadBackgroundImage(language) {
@@ -311,7 +324,7 @@ shareButton.addEventListener("click", () => {
       a.click();
       document.body.removeChild(a);
     });
-  }, 100); // Esperar 100ms (ajusta según sea necesario)
+  }, 110); // Esperar 100ms (ajusta según sea necesario)
 });
 
 // Añadir evento al botón de ver para mostrar el modal de imagen
