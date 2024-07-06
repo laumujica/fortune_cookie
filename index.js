@@ -69,7 +69,7 @@ function generateRandomFortune() {
   showShareButton(); // Mostrar el botón de compartir
 }
 
-// Función para mostrar la fortuna del día si ya existe
+/* // Función para mostrar la fortuna del día si ya existe
 function displayTodayFortune() {
   const savedIndex = localStorage.getItem("todayFortuneIndex");
   const savedDate = localStorage.getItem("fortuneDate");
@@ -103,8 +103,119 @@ function displayTodayFortune() {
     revealMessageElement.style.display = 'block';
     fortuneText.style.display = 'none';
   }
+} */
+
+// Función para cargar la fortuna del día al abrir la página
+document.addEventListener('DOMContentLoaded', displayTodayFortune);
+
+// Función para generar la imagen con el texto aleatorio y los números (cargados o generados)
+function generateImage() {
+  const language = localStorage.getItem("language") || "en";
+  const backgroundImage = loadBackgroundImage(language);
+  return new Promise((resolve, reject) => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Crear una nueva imagen de fondo
+    const img = new Image();
+    img.onload = function () {
+      // Establecer el tamaño del canvas al tamaño de la imagen
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      // Dibujar la imagen de fondo en el canvas
+      ctx.drawImage(img, 0, 0);
+
+      // Estilos para el texto
+      ctx.font = "60px Futura";
+      ctx.fillStyle = "white";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      const text = fortuneText.textContent; // Obtener la frase aleatoria generada
+      const x = canvas.width / 2;
+      const y = canvas.height / 2 - 40; // Ajustar la posición vertical del texto
+
+      // Ajustar el texto para que se divida en líneas si es muy largo
+      const maxWidth = canvas.width - 100; // Ajusta el ancho máximo según sea necesario
+      const lineHeightFactor = 1.55;
+      const lineHeight = 50; // Ajusta la altura de la línea según sea necesario
+      const lines = wrapText(ctx, text, x, y, maxWidth, lineHeight);
+
+      // Calcular la posición y para cada línea de texto
+      let textHeight = 0;
+      lines.forEach((line, i) => {
+        const offsetY = i * lineHeight * lineHeightFactor;
+        ctx.fillText(line, x, y + offsetY);
+        textHeight = offsetY + lineHeight; // Actualizar la altura del texto
+      });
+
+      // Obtener los números (cargados o generados)
+      const savedNumbers = localStorage.getItem("todayFortuneNumbers");
+      const numbersArray = savedNumbers ? savedNumbers.split(" ") : Array.from(document.querySelectorAll("#fortune-numbers span")).map(span => span.textContent);
+
+      // Dibujar los números en la imagen
+      const numbersY = canvas.height - 600; // Ajusta la posición vertical de los números
+
+      numbersArray.forEach((number, index) => {
+        ctx.font = "40px Futura"; // Ajustar el tamaño de la fuente para los números
+        ctx.fillStyle = "lemonchiffon";
+        const numbersX = canvas.width / 2 + (index - 2.5) * 100; // Ajustar la posición horizontal de cada número
+        ctx.fillText(number, numbersX, numbersY);
+      });
+
+      resolve(); // Resolvemos la promesa después de completar la generación
+    };
+
+    // Manejar errores de carga de la imagen de fondo
+    img.onerror = function () {
+      console.error("Error al cargar la imagen de fondo.");
+      reject("Error al cargar la imagen de fondo.");
+    };
+
+    // Establecer la ruta de la imagen de fondo
+    img.src = backgroundImage;
+  });
 }
 
+// Función para mostrar la fortuna del día si ya existe
+function displayTodayFortune() {
+  const savedIndex = localStorage.getItem("todayFortuneIndex");
+  const savedDate = localStorage.getItem("fortuneDate");
+  const today = new Date().toISOString().split("T")[0];
+
+  if (savedIndex !== null && savedDate === today) {
+    currentFortuneIndex = parseInt(savedIndex, 10);
+    fortuneText.textContent = `"${fortuneMessages[currentFortuneIndex]}"`;
+    showShareButton(); // Mostrar el botón de compartir si ya se ha revelado la fortuna
+
+    // Mostrar los números aleatorios guardados
+    const savedNumbers = localStorage.getItem("todayFortuneNumbers");
+    if (savedNumbers) {
+      const numbersArray = savedNumbers.split(" ");
+      fortuneNumbersElement.innerHTML = ""; // Limpiar contenido previo
+
+      numbersArray.forEach((number) => {
+        const span = document.createElement("span");
+        span.textContent = number;
+        span.classList.add("number-style"); // Asignar la clase de estilo
+        fortuneNumbersElement.appendChild(span);
+      });
+    }
+
+    revealMessageElement.style.display = 'none';
+    fortuneText.style.display = 'block';
+
+    // Volver a generar la imagen con los números cargados
+    generateImage(); // Llama a la función para generar la imagen con números cargados
+  } else {
+    // Mostrar un mensaje indicando que se necesita revelar la nueva fortuna del día
+    fortuneText.textContent = fortuneMessages.reveal_message;
+    fortuneNumbersElement.textContent = ""; // Limpiar números anteriores si es necesario
+    hideShareButton(); // Esconder el botón de compartir si no hay fortuna del día
+    revealMessageElement.style.display = 'block';
+    fortuneText.style.display = 'none';
+  }
+}
 
 // Función para comprobar si la galleta de la fortuna ya fue abierta hoy
 function checkFortuneOpenedToday() {
@@ -130,7 +241,7 @@ function setFortuneOpenedToday() {
   if (savedDate !== todayDate) {
     localStorage.removeItem("todayFortuneIndex");
     localStorage.removeItem("fortuneDate");
-    localStorage.removeItem("todayFortuneNumbers");
+    /* localStorage.removeItem("todayFortuneNumbers"); */
   }
 }
 
@@ -338,7 +449,7 @@ viewButton.addEventListener("click", () => {
   });
 });
 
-// Función para generar la imagen con el texto aleatorio y los números
+/* // Función para generar la imagen con el texto aleatorio y los números
 function generateImage() {
   const language = localStorage.getItem("language") || "en";
   const backgroundImage = loadBackgroundImage(language);
@@ -405,6 +516,10 @@ function generateImage() {
     img.src = backgroundImage;
   });
 }
+ */
+
+
+
 
 // Función para dividir el texto en líneas según el ancho máximo
 function wrapText(ctx, text, x, y, maxWidth, lineHeight) {

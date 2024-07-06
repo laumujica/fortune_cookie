@@ -227,6 +227,16 @@ body {
   display: flex;
   gap: 1.3rem; /* Ajusta el valor según sea necesario */
 }
+
+/* Añadir esto a tu archivo CSS */
+span .number-style {
+  font-size: 0.9rem;
+  color: var(--numbers-color);
+  display: flex; 
+  justify-content: center; 
+}
+
+
 /* fin */
 
 .generate-phrase {
