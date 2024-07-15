@@ -212,30 +212,28 @@ body {
   color: #c7c6c6;
   font-style: italic;
   padding-bottom: 5rem;
-
 }
 
 /* ! numbers */
 .numbers {
   font-size: 0.9rem;
   color: var(--numbers-color);
-  display: flex; 
-  justify-content: center; 
+  display: flex;
+  justify-content: center;
 }
 
 #fortune-numbers {
   display: flex;
-  gap: 1.3rem; /* Ajusta el valor según sea necesario */
+  gap: 2rem; /* Ajusta el valor según sea necesario */
 }
 
 /* Añadir esto a tu archivo CSS */
-span .number-style {
+.number-style {
   font-size: 0.9rem;
   color: var(--numbers-color);
-  display: flex; 
-  justify-content: center; 
+  display: flex;
+  justify-content: center;
 }
-
 
 /* fin */
 
@@ -318,6 +316,17 @@ button.generate-phrase:focus {
   flex-direction: row-reverse;
 }
 
+.modal-buttons a {
+  display: inline-block;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.modal-buttons img {
+  width: 40px; /* Ajustar según el tamaño de tus íconos */
+  height: auto;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -365,6 +374,7 @@ span.close-fortune {
 }
 
 #share-button,
+#web-share-button,
 #view-button {
   display: none;
   margin-top: 20px;
@@ -380,6 +390,7 @@ span.close-fortune {
 }
 
 #share-button:hover,
+#web-share-button:hover,
 #view-button:hover {
   background-color: var(--primary-color);
   color: var(--white-color);
@@ -388,6 +399,7 @@ span.close-fortune {
 }
 
 #share-button:active,
+#web-share-button:active,
 #view-button:active {
   background-color: var(--light-color);
   color: var(--white-color);

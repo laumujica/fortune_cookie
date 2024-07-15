@@ -26,7 +26,10 @@
       property="og:description"
       content="Fortune Cookie está llena de motivación crocante y desafíos a la suerte y al azar. Dejá que el destino hable por vos y te lleve a lugares desconocidos. Llamale misterio, casualidad o suerte... Pero sacate las ganas de saber qué puede pasar en tu día a día."
     />
-    <meta property="og:image" content="https://laumujica.github.io/fortune_cookie/img/banner_metaTags.jpg" />
+    <meta
+      property="og:image"
+      content="https://laumujica.github.io/fortune_cookie/img/banner_metaTags.jpg"
+    />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -42,11 +45,15 @@
       property="twitter:description"
       content="Fortune Cookie está llena de motivación crocante y desafíos a la suerte y al azar. Dejá que el destino hable por vos y te lleve a lugares desconocidos. Llamale misterio, casualidad o suerte... Pero sacate las ganas de saber qué puede pasar en tu día a día."
     />
-    <meta property="twitter:image" content="https://laumujica.github.io/fortune_cookie/img/banner_metaTags.jpg" />
+    <meta
+      property="twitter:image"
+      content="https://laumujica.github.io/fortune_cookie/img/banner_metaTags.jpg"
+    />
 
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+ 
     <!-- Círculos prueba -->
     <div class="background-circles">
       <div class="circle"></div>
@@ -69,7 +76,7 @@
     <div class="phrase">
       <h2 class="fortune"><span id="fortune-text"></span></h2>
       <h2 class="reveal-message" id="reveal-message"></h2>
-      <h3 class= "numbers"><span id="fortune-numbers"></span></h3>
+      <h3 class="numbers"><span id="fortune-numbers"></span></h3>
     </div>
     <button class="generate-phrase" id="reveal-button"></button>
 
@@ -82,7 +89,7 @@
     </div>
 
     <div class="btns-container">
-      <button id="share-button" style="display: none"></button>
+      <!-- <button id="share-button" style="display: none"></button> -->
       <button id="view-button" style="display: none"></button>
     </div>
 
@@ -95,6 +102,17 @@
           alt="Fortune Image"
           style="max-width: 100%; max-height: 100%"
         />
+
+        <div class="modal-buttons">
+          <!-- <button id="share-button" class="share" style="display: none"></button>
+          <button id="share-button" class="share" style="display: none"></button>
+          <button id="share-button" class="share" style="display: none"></button> -->
+          <!-- Download -->
+          <button id="share-button" class="share" style="display: none">
+            DESCARGAR
+          </button>
+          <button id="web-share-button" class="share" style="display: none">¡COMPARTIR!</button>
+        </div>
       </div>
     </div>
 

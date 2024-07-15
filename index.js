@@ -21,8 +21,20 @@ const shareButton = document.getElementById("share-button");
 const viewButton = document.getElementById("view-button");
 const closeModal = document.querySelector(".close");
 const languageSwitch = document.getElementById("languageSwitch");
-const revealMessageElement = document.getElementById('reveal-message');
-const fortuneNumbersElement = document.getElementById('fortune-numbers');
+const revealMessageElement = document.getElementById("reveal-message");
+const fortuneNumbersElement = document.getElementById("fortune-numbers");
+const shareImageButton = document.getElementById("share-image-button");
+const webShareButton = document.getElementById("web-share-button");
+
+// Cargar el idioma inicial
+let lang = languageSwitch.checked ? "en" : "es";
+loadLanguage(lang);
+
+// Cambiar el idioma al cambiar el switch
+languageSwitch.addEventListener("change", () => {
+  lang = languageSwitch.checked ? "en" : "es";
+  loadLanguage(lang);
+});
 
 
 // Función para generar números aleatorios del 00 al 99 sin duplicados
@@ -50,63 +62,33 @@ function generateRandomFortune() {
     );
   }
 
-  // Generar números aleatorios y mostrarlos
+  // Generar números aleatorios y guardarlos
   const randomNumbers = generateRandomNumbers();
-  
-  // Limpiar el contenido anterior
-  fortuneNumbersElement.innerHTML = "";
-
-  // Crear spans para cada número
-  randomNumbers.forEach((number) => {
-    const span = document.createElement("span");
-    span.textContent = number;
-    span.classList.add("number-style"); // Asignar la clase de estilo
-    fortuneNumbersElement.appendChild(span);
-  });
-
   localStorage.setItem("todayFortuneNumbers", randomNumbers.join(" ")); // Guardar los números en el almacenamiento local
+
+  displayNumbers(); // Mostrar los números generados
 
   showShareButton(); // Mostrar el botón de compartir
 }
 
-/* // Función para mostrar la fortuna del día si ya existe
-function displayTodayFortune() {
-  const savedIndex = localStorage.getItem("todayFortuneIndex");
-  const savedDate = localStorage.getItem("fortuneDate");
-  const today = new Date().toISOString().split("T")[0];
+// Función para mostrar los números guardados en el almacenamiento local
+function displayNumbers() {
+  const savedNumbers = localStorage.getItem("todayFortuneNumbers");
+  if (savedNumbers) {
+    const numbersArray = savedNumbers.split(" ");
+    fortuneNumbersElement.innerHTML = ""; // Limpiar contenido previo
 
-  if (savedIndex !== null && savedDate === today) {
-    currentFortuneIndex = parseInt(savedIndex, 10);
-    fortuneText.textContent = `"${fortuneMessages[currentFortuneIndex]}"`;
-    showShareButton(); // Mostrar el botón de compartir si ya se ha revelado la fortuna
-
-    // Mostrar los números aleatorios guardados
-    const savedNumbers = localStorage.getItem("todayFortuneNumbers");
-    if (savedNumbers) {
-      const numbersArray = savedNumbers.split(" ");
-      fortuneNumbersElement.innerHTML = ""; // Limpiar contenido previo
-
-      numbersArray.forEach((number) => {
-        const span = document.createElement("span");
-        span.textContent = number;
-        span.classList.add("number-style"); // Asignar la clase de estilo
-        fortuneNumbersElement.appendChild(span);
-      });
-    }
-    revealMessageElement.style.display = 'none';
-    fortuneText.style.display = 'block';
-  } else {
-    // Mostrar un mensaje indicando que se necesita revelar la nueva fortuna del día
-    fortuneText.textContent = fortuneMessages.reveal_message;
-    fortuneNumbersElement.textContent = ""; // Limpiar números anteriores si es necesario
-    hideShareButton(); // Esconder el botón de compartir si no hay fortuna del día
-    revealMessageElement.style.display = 'block';
-    fortuneText.style.display = 'none';
+    numbersArray.forEach((number) => {
+      const span = document.createElement("span");
+      span.textContent = number;
+      span.classList.add("number-style"); // Asignar la clase de estilo
+      fortuneNumbersElement.appendChild(span);
+    });
   }
-} */
+}
 
 // Función para cargar la fortuna del día al abrir la página
-document.addEventListener('DOMContentLoaded', displayTodayFortune);
+document.addEventListener("DOMContentLoaded", displayTodayFortune);
 
 // Función para generar la imagen con el texto aleatorio y los números (cargados o generados)
 function generateImage() {
@@ -151,7 +133,11 @@ function generateImage() {
 
       // Obtener los números (cargados o generados)
       const savedNumbers = localStorage.getItem("todayFortuneNumbers");
-      const numbersArray = savedNumbers ? savedNumbers.split(" ") : Array.from(document.querySelectorAll("#fortune-numbers span")).map(span => span.textContent);
+      const numbersArray = savedNumbers
+        ? savedNumbers.split(" ")
+        : Array.from(document.querySelectorAll("#fortune-numbers span")).map(
+            (span) => span.textContent
+          );
 
       // Dibujar los números en la imagen
       const numbersY = canvas.height - 600; // Ajusta la posición vertical de los números
@@ -202,8 +188,8 @@ function displayTodayFortune() {
       });
     }
 
-    revealMessageElement.style.display = 'none';
-    fortuneText.style.display = 'block';
+    revealMessageElement.style.display = "none";
+    fortuneText.style.display = "block";
 
     // Volver a generar la imagen con los números cargados
     generateImage(); // Llama a la función para generar la imagen con números cargados
@@ -212,8 +198,8 @@ function displayTodayFortune() {
     fortuneText.textContent = fortuneMessages.reveal_message;
     fortuneNumbersElement.textContent = ""; // Limpiar números anteriores si es necesario
     hideShareButton(); // Esconder el botón de compartir si no hay fortuna del día
-    revealMessageElement.style.display = 'block';
-    fortuneText.style.display = 'none';
+    revealMessageElement.style.display = "block";
+    fortuneText.style.display = "none";
   }
 }
 
@@ -241,10 +227,9 @@ function setFortuneOpenedToday() {
   if (savedDate !== todayDate) {
     localStorage.removeItem("todayFortuneIndex");
     localStorage.removeItem("fortuneDate");
-    /* localStorage.removeItem("todayFortuneNumbers"); */
+    localStorage.removeItem("todayFortuneNumbers");
   }
 }
-
 
 // Función para manejar el clic en el botón "Revelar"
 function handleButtonClick() {
@@ -259,8 +244,8 @@ function handleButtonClick() {
     languageSwitch.classList.add("disabled"); // Añadir clase para estilo en escala de grises
     generateButton.disabled = false; // Habilitar el botón de revelar
     // Ocultar el mensaje de revelación y mostrar la fortuna
-    revealMessageElement.style.display = 'none';
-    fortuneText.style.display = 'block';
+    revealMessageElement.style.display = "none";
+    fortuneText.style.display = "block";
   }
 }
 
@@ -299,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Función para cargar la fortuna del día al abrir la página
-document.addEventListener('DOMContentLoaded', displayTodayFortune);
+document.addEventListener("DOMContentLoaded", displayTodayFortune);
 
 // Función para cargar la imagen de fondo según el idioma
 function loadBackgroundImage(language) {
@@ -321,12 +306,20 @@ function loadLanguage(language) {
       document.getElementById("slogan").textContent = data.slogan;
       document.getElementById("reveal-button").textContent = data.reveal_button;
       document.getElementById("modal-message").innerHTML = data.modal_message;
-      document.getElementById("share-button").textContent = data.share_button;
+    /*   document.getElementById("share-button").textContent = data.share_button;
       document.getElementById("view-button").textContent = data.view_button;
       document.getElementById("reveal-message").textContent =
         data.reveal_message;
+      document.getElementById("web-share-button").textContent =
+        fortuneText.web_share_button; */
       /* fortuneText.textContent = data.reveal_message;
        */
+      shareButton.textContent = data.share_button;
+      viewButton.textContent = data.view_button;
+      revealMessageElement.textContent = data.reveal_message;
+      webShareButton.textContent = data.web_share_button;
+
+
       // Cargar la imagen de fondo según el idioma
       const backgroundImage = data.background_image || "img/bg-imgES.jpg"; // Puedes usar una imagen por defecto
       setBackgroundImage(backgroundImage);
@@ -381,7 +374,8 @@ document
   .getElementById("languageSwitch")
   .addEventListener("change", (event) => {
     const language = event.target.checked ? "en" : "es";
-    setLanguage(language);
+    /* setLanguage(language); */
+    loadContent(language);
     document
       .getElementById("languageSwitch")
       .setAttribute("data-label", language.toUpperCase());
@@ -391,6 +385,7 @@ document
 function showShareButton() {
   shareButton.style.display = "inline-block";
   viewButton.style.display = "inline-block";
+  webShareButton.style.display = "inline-block";
 }
 
 // Función para obtener el nombre del archivo de acuerdo al idioma y la fecha
@@ -449,77 +444,27 @@ viewButton.addEventListener("click", () => {
   });
 });
 
-/* // Función para generar la imagen con el texto aleatorio y los números
-function generateImage() {
-  const language = localStorage.getItem("language") || "en";
-  const backgroundImage = loadBackgroundImage(language);
-  return new Promise((resolve, reject) => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+// Event listener para el botón web-share-button
+webShareButton.addEventListener('click', async () => {
+  if (navigator.share) {
+      try {
+          // Convertir el canvas a un blob
+          const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+          const file = new File([blob], 'fortune.png', { type: 'image/png' });
 
-    // Crear una nueva imagen de fondo
-    const img = new Image();
-    img.onload = function () {
-      // Establecer el tamaño del canvas al tamaño de la imagen
-      canvas.width = img.width;
-      canvas.height = img.height;
-
-      // Dibujar la imagen de fondo en el canvas
-      ctx.drawImage(img, 0, 0);
-
-      // Estilos para el texto
-      ctx.font = "60px Futura";
-      ctx.fillStyle = "white";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-
-      const text = fortuneText.textContent; // Obtener la frase aleatoria generada
-      const x = canvas.width / 2;
-      const y = canvas.height / 2 - 40; // Ajustar la posición vertical del texto
-
-      // Ajustar el texto para que se divida en líneas si es muy largo
-      const maxWidth = canvas.width - 100; // Ajusta el ancho máximo según sea necesario
-      const lineHeightFactor = 1.55;
-      const lineHeight = 50; // Ajusta la altura de la línea según sea necesario
-      const lines = wrapText(ctx, text, x, y, maxWidth, lineHeight);
-
-      // Calcular la posición y para cada línea de texto
-      let textHeight = 0;
-      lines.forEach((line, i) => {
-        const offsetY = i * lineHeight * lineHeightFactor;
-        ctx.fillText(line, x, y + offsetY);
-        textHeight = offsetY + lineHeight; // Actualizar la altura del texto
-      });
-
-      // Obtener los números generados y dibujarlos en la imagen
-      const fortuneNumbers = document.querySelectorAll("#fortune-numbers span");
-      const numbersY = canvas.height - 600; // Ajusta la posición vertical de los números
-
-      // Convertir fortuneNumbers en un array para poder usar forEach
-      Array.from(fortuneNumbers).forEach((span, index) => {
-        const number = span.textContent;
-        ctx.font = "40px Futura"; // Ajustar el tamaño de la fuente para los números
-        ctx.fillStyle = "lemonchiffon";
-        const numbersX = canvas.width / 2 + (index - 2.5) * 100; // Ajustar la posición horizontal de cada número
-        ctx.fillText(number, numbersX, numbersY);
-      });
-
-      resolve(); // Resolvemos la promesa después de completar la generación
-    };
-
-    // Manejar errores de carga de la imagen de fondo
-    img.onerror = function () {
-      console.error("Error al cargar la imagen de fondo.");
-      reject("Error al cargar la imagen de fondo.");
-    };
-
-    // Establecer la ruta de la imagen de fondo
-    img.src = backgroundImage;
-  });
-}
- */
-
-
-
+          await navigator.share({
+              title: 'Fortune Cookie',
+              text: 'Revisa tu fortuna del día!',
+              files: [file]
+          });
+          console.log('¡Contenido compartido con éxito!');
+      } catch (error) {
+          console.error('Error al compartir:', error);
+      }
+  } else {
+      console.error('Web Share API no está disponible en este navegador.');
+  }
+});
 
 // Función para dividir el texto en líneas según el ancho máximo
 function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
