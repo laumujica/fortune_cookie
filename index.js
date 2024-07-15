@@ -306,18 +306,19 @@ function loadLanguage(language) {
       document.getElementById("slogan").textContent = data.slogan;
       document.getElementById("reveal-button").textContent = data.reveal_button;
       document.getElementById("modal-message").innerHTML = data.modal_message;
-    /*   document.getElementById("share-button").textContent = data.share_button;
-      document.getElementById("view-button").textContent = data.view_button;
-      document.getElementById("reveal-message").textContent =
-        data.reveal_message;
-      document.getElementById("web-share-button").textContent =
-        fortuneText.web_share_button; */
-      /* fortuneText.textContent = data.reveal_message;
-       */
       shareButton.textContent = data.share_button;
       viewButton.textContent = data.view_button;
       revealMessageElement.textContent = data.reveal_message;
       webShareButton.textContent = data.web_share_button;
+      // Asignar textos desde JSON a las constantes
+      text.title = data.title;
+      text.text = data.slogan;
+      
+      image.title = data.title;
+      image.text = data.slogan;
+      
+      shareTitle = data.title;
+      shareText = data.slogan; 
 
 
       // Cargar la imagen de fondo según el idioma
@@ -444,7 +445,7 @@ viewButton.addEventListener("click", () => {
   });
 });
 
-// Event listener para el botón web-share-button
+/* // Event listener para el botón web-share-button
 webShareButton.addEventListener('click', async () => {
   if (navigator.share) {
       try {
@@ -455,7 +456,8 @@ webShareButton.addEventListener('click', async () => {
           await navigator.share({
               title: 'Fortune Cookie',
               text: 'Revisa tu fortuna del día!',
-              files: [file]
+              files: [file],
+              url: 'https://fortunecookie.com.ar/'
           });
           console.log('¡Contenido compartido con éxito!');
       } catch (error) {
@@ -464,6 +466,45 @@ webShareButton.addEventListener('click', async () => {
   } else {
       console.error('Web Share API no está disponible en este navegador.');
   }
+}); */
+
+// Variables para textos de compartir
+let shareTitle;
+let shareText;
+let shareUrl = 'https://fortunecookie.com.ar/';
+
+// Constantes para textos e imagen
+const text = {
+    title: '',
+    text: '',
+    url: 'https://fortunecookie.com.ar/',
+};
+
+const image = {
+    title: '',
+    text: '',
+    url: 'https://fortunecookie.com.ar/',
+    files: [],
+};
+
+
+// Event listener para el botón web-share-button
+webShareButton.addEventListener('click', async () => {
+    if (navigator.share) {
+        try {
+            // Convertir el canvas a un blob
+            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+            const file = new File([blob], 'fortune.png', { type: 'image/png' });
+            image.files = [file]; // Asignar el archivo a la constante image
+
+            await navigator.share(image);
+            console.log('¡Contenido compartido con éxito!');
+        } catch (error) {
+            console.error('Error al compartir:', error);
+        }
+    } else {
+        console.error('Web Share API no está disponible en este navegador.');
+    }
 });
 
 // Función para dividir el texto en líneas según el ancho máximo
