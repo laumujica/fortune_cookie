@@ -473,7 +473,12 @@ webShareButton.addEventListener('click', async () => {
             const file = new File([blob], getFilename(), { type: 'image/png' });
             image.files = [file]; // Asignar el archivo a la constante image
 
-            await navigator.share(image);
+            await navigator.share({
+                title: shareTitle,
+                text: shareText,
+                files: [file],
+                url: shareUrl
+            });
             console.log('¡Contenido compartido con éxito!');
         } catch (error) {
             console.error('Error al compartir:', error);

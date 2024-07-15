@@ -479,8 +479,8 @@ span.close-fortune {
 .madre {
   margin-top: 20px;
   text-align: center;
-  color: #000;
-  font-size: 1rem;
+  color: black;
+  font-size: 0.7rem;
 }
 
 .madre a {
