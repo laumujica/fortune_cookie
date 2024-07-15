@@ -29,6 +29,7 @@ html {
   --white-color: #ffffff;
   --high-color: #ffed6c;
   --numbers-color: #fffacd;
+  --grey-color: #cacaca;
 }
 
 body {
@@ -373,7 +374,14 @@ span.close-fortune {
   text-align: center;
 }
 
-#share-button,
+.modal-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
 #web-share-button,
 #view-button {
   display: none;
@@ -389,11 +397,31 @@ span.close-fortune {
   font-weight: 100;
 }
 
-#share-button:hover,
+#share-button {
+  display: none;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: var(--grey-color);
+  color: var(--bg-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "futura";
+  font-weight: 100;
+}
+
 #web-share-button:hover,
 #view-button:hover {
   background-color: var(--primary-color);
   color: var(--white-color);
+  transform: scale(1.1);
+  font-weight: 500;
+}
+
+#share-button:hover {
+  background-color: var(--grey-color);
+  color: var(--bg-color);
   transform: scale(1.1);
   font-weight: 500;
 }

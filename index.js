@@ -36,7 +36,6 @@ languageSwitch.addEventListener("change", () => {
   loadLanguage(lang);
 });
 
-
 // Función para generar números aleatorios del 00 al 99 sin duplicados
 function generateRandomNumbers() {
   const numbers = new Set();
@@ -445,29 +444,6 @@ viewButton.addEventListener("click", () => {
   });
 });
 
-/* // Event listener para el botón web-share-button
-webShareButton.addEventListener('click', async () => {
-  if (navigator.share) {
-      try {
-          // Convertir el canvas a un blob
-          const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-          const file = new File([blob], 'fortune.png', { type: 'image/png' });
-
-          await navigator.share({
-              title: 'Fortune Cookie',
-              text: 'Revisa tu fortuna del día!',
-              files: [file],
-              url: 'https://fortunecookie.com.ar/'
-          });
-          console.log('¡Contenido compartido con éxito!');
-      } catch (error) {
-          console.error('Error al compartir:', error);
-      }
-  } else {
-      console.error('Web Share API no está disponible en este navegador.');
-  }
-}); */
-
 // Variables para textos de compartir
 let shareTitle;
 let shareText;
@@ -494,7 +470,7 @@ webShareButton.addEventListener('click', async () => {
         try {
             // Convertir el canvas a un blob
             const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-            const file = new File([blob], 'fortune.png', { type: 'image/png' });
+            const file = new File([blob], getFilename(), { type: 'image/png' });
             image.files = [file]; // Asignar el archivo a la constante image
 
             await navigator.share(image);
