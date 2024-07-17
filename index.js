@@ -196,7 +196,7 @@ function displayTodayFortune() {
     // Mostrar un mensaje indicando que se necesita revelar la nueva fortuna del día
     fortuneText.textContent = fortuneMessages.reveal_message;
     fortuneNumbersElement.textContent = ""; // Limpiar números anteriores si es necesario
-    hideShareButton(); // Esconder el botón de compartir si no hay fortuna del día
+    /* hideShareButton();  */// Esconder el botón de compartir si no hay fortuna del día
     revealMessageElement.style.display = "block";
     fortuneText.style.display = "none";
   }
@@ -306,7 +306,7 @@ function loadLanguage(language) {
       // Asignar el eslogan al contenedor correspondiente
       document.getElementById("slogan-desktop").textContent = data.slogan;
       document.getElementById("slogan-mobile").innerHTML = data.slogan_mobile;
-      
+
       document.getElementById("reveal-button").textContent = data.reveal_button;
       document.getElementById("modal-message").innerHTML = data.modal_message;
       shareButton.textContent = data.share_button;
