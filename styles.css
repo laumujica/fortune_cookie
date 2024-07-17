@@ -184,12 +184,20 @@ body {
   margin-right: 20px;
 }
 
-#slogan {
+.slogan {
   font-size: 16px;
   color: var(--high-color);
   text-align: center;
   margin: 0;
   font-style: italic;
+}
+
+#slogan-desktop {
+  display: block;
+}
+
+#slogan-mobile {
+  display: none;
 }
 
 .phrase {
@@ -484,12 +492,12 @@ span.close-fortune {
 }
 
 .madre a {
-  color: #000; /* Color normal del hipervínculo */
-  text-decoration: none; /* Eliminar subrayado */
+  color: #000; 
+  text-decoration: none;
 }
 
 .madre a:visited {
-  color: var(--high-color); /* Color para hipervínculos visitados */
+  color: var(--high-color); 
 }
 /* Fin powered by */
 
@@ -750,21 +758,6 @@ h2 {
   background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
 }
 
-/* #modal-image-content {
-  background-color: var(--white-color);
-  margin: 0 auto; 
-  border: 1px solid #888;
-  width: 20rem; 
-} */
-
-/* #modal-image-content {
-  margin: 15% auto; 
-  padding: 20px;
-  background-color: #fefefe;
-  border: 1px solid #888;
-  width: 20rem;
-} */
-
 .modal-content {
   padding: 10px;
   font-size: 14px;
@@ -848,11 +841,12 @@ h2 {
     font-size: 1.2rem;
   }
 
-  #slogan {
-    margin-top: -1rem;
-    font-size: 14px;
-    text-align: center;
-    max-width: 20rem;
+  #slogan-desktop {
+    display: none;
+  }
+
+  #slogan-mobile {
+    display: block;
   }
 
   button.generate-phrase {
@@ -925,5 +919,13 @@ h2 {
   #modal-image-content {
     max-width: 20rem;
     padding: 1rem;
+  }
+
+  #slogan-line1, #slogan-line2 {
+    display: inline; /* Mostrar en línea en pantallas grandes */
+  }
+
+  #slogan-container br {
+    display: none; /* Ocultar el salto de línea en pantallas grandes */
   }
 }

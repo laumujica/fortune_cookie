@@ -302,7 +302,11 @@ function loadLanguage(language) {
     .then((response) => response.json())
     .then((data) => {
       document.getElementById("title-text").textContent = data.title;
-      document.getElementById("slogan").textContent = data.slogan;
+
+      // Asignar el eslogan al contenedor correspondiente
+      document.getElementById("slogan-desktop").textContent = data.slogan;
+      document.getElementById("slogan-mobile").innerHTML = data.slogan_mobile;
+      
       document.getElementById("reveal-button").textContent = data.reveal_button;
       document.getElementById("modal-message").innerHTML = data.modal_message;
       shareButton.textContent = data.share_button;
@@ -312,13 +316,12 @@ function loadLanguage(language) {
       // Asignar textos desde JSON a las constantes
       text.title = data.title;
       text.text = data.slogan;
-      
+
       image.title = data.title;
       image.text = data.slogan;
-      
-      shareTitle = data.title;
-      shareText = data.slogan; 
 
+      shareTitle = data.title;
+      shareText = data.slogan;
 
       // Cargar la imagen de fondo según el idioma
       const backgroundImage = data.background_image || "img/bg-imgES.jpg"; // Puedes usar una imagen por defecto
@@ -447,45 +450,46 @@ viewButton.addEventListener("click", () => {
 // Variables para textos de compartir
 let shareTitle;
 let shareText;
-let shareUrl = 'https://fortunecookie.com.ar/';
+let shareUrl = "https://fortunecookie.com.ar/";
 
 // Constantes para textos e imagen
 const text = {
-    title: '',
-    text: '',
-    url: 'https://fortunecookie.com.ar/',
+  title: "",
+  text: "",
+  url: "https://fortunecookie.com.ar/",
 };
 
 const image = {
-    title: '',
-    text: '',
-    url: 'https://fortunecookie.com.ar/',
-    files: [],
+  title: "",
+  text: "",
+  url: "https://fortunecookie.com.ar/",
+  files: [],
 };
 
-
 // Event listener para el botón web-share-button
-webShareButton.addEventListener('click', async () => {
-    if (navigator.share) {
-        try {
-            // Convertir el canvas a un blob
-            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-            const file = new File([blob], getFilename(), { type: 'image/png' });
-            image.files = [file]; // Asignar el archivo a la constante image
+webShareButton.addEventListener("click", async () => {
+  if (navigator.share) {
+    try {
+      // Convertir el canvas a un blob
+      const blob = await new Promise((resolve) =>
+        canvas.toBlob(resolve, "image/png")
+      );
+      const file = new File([blob], getFilename(), { type: "image/png" });
+      image.files = [file]; // Asignar el archivo a la constante image
 
-            await navigator.share({
-                title: shareTitle,
-                text: shareText,
-                files: [file],
-                url: shareUrl
-            });
-            console.log('¡Contenido compartido con éxito!');
-        } catch (error) {
-            console.error('Error al compartir:', error);
-        }
-    } else {
-        console.error('Web Share API no está disponible en este navegador.');
+      await navigator.share({
+        title: shareTitle,
+        text: shareText,
+        files: [file],
+        url: shareUrl,
+      });
+      console.log("¡Contenido compartido con éxito!");
+    } catch (error) {
+      console.error("Error al compartir:", error);
     }
+  } else {
+    console.error("Web Share API no está disponible en este navegador.");
+  }
 });
 
 // Función para dividir el texto en líneas según el ancho máximo

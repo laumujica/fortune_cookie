@@ -1,6 +1,7 @@
 {
     "title": "Fortune Cookie",
     "slogan": "¿Qué te deparará el destino? Encontrá tu mensaje del día.",
+    "slogan_mobile": "¿Qué te deparará el destino?<br>Encontrá tu mensaje del día.",
     "reveal_button": "¡REVELAR!",
     "modal_message": "Mmm... Ya conoces tu fortuna de hoy. ¿Qué harás al respecto? <strong id=\"boldText\">¡Te esperamos mañana! 😃</strong> Que estés muy bien.",
     "share_button": "Descargar",
