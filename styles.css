@@ -8,6 +8,17 @@
   src: url("font/FuturaBoldBT.woff");
 }
 
+@font-face {
+  font-family: "futura-medium";
+  src: url("font/FuturaMediumBT.woff");
+}
+
+@font-face {
+  font-family: "futura-medium-italic";
+  src: url("font/FuturaMediumItalicBT.woff");
+}
+
+
 * {
   font-family: sans-serif;
   margin: 0;
@@ -189,15 +200,17 @@ body {
   color: var(--high-color);
   text-align: center;
   margin: 0;
-  font-style: italic;
+  font-weight: 100;
 }
 
 #slogan-desktop {
   display: block;
+  font-family: "futura-medium-italic";
 }
 
 #slogan-mobile {
   display: none;
+  font-family: "futura-medium-italic";
 }
 
 .phrase {
@@ -243,6 +256,15 @@ body {
   display: flex;
   justify-content: center;
 }
+
+.trebol {
+width: 3%;
+height: auto;
+margin-top: -3px;
+margin-left: 13px;
+display: none;
+}
+
 /* fin */
 
 .generate-phrase {
@@ -389,7 +411,6 @@ span.close-fortune {
   gap: 1rem;
 }
 
-#web-share-button,
 #view-button {
   display: none;
   margin-top: 20px;
@@ -404,11 +425,25 @@ span.close-fortune {
   font-weight: 100;
 }
 
+#web-share-button {
+  display: none;
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 14px;
+  background-color: var(--high-color);
+  color: var(--bg-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "futura";
+  font-weight: 100;
+}
+
 #share-button {
   display: none;
   margin-top: 20px;
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: 14px;
   background-color: var(--grey-color);
   color: var(--bg-color);
   border: none;
@@ -496,7 +531,7 @@ span.close-fortune {
 }
 
 .madre a:visited {
-  color: var(--grey-color); 
+  color: var(--numbers-color); 
 }
 /* Fin powered by */
 
@@ -832,6 +867,7 @@ h2 {
 
   #title-text {
     font-size: 1.5rem;
+    margin-bottom: 0;
   }
 
   #fortune-text {
@@ -842,10 +878,13 @@ h2 {
 
   #slogan-desktop {
     display: none;
+    
   }
 
   #slogan-mobile {
     display: block;
+    margin-top: -0.5rem;
+    margin-bottom: 2rem;
   }
 
   button.generate-phrase {
@@ -862,6 +901,11 @@ h2 {
   #modal-image-content {
     max-width: 18rem;
     padding: 1.2rem;
+  }
+
+  #web-share-button {
+    padding: 5px;
+    font-size: 14px;
   }
 }
 
@@ -895,7 +939,7 @@ h2 {
   }
 
   .cat > img {
-    width: 200px;
+    width: 150px;
   }
 
   #title-text {
@@ -934,6 +978,7 @@ h2 {
 @media screen and (min-width: 1441px) {
   
   .slogan {
+    font-family: "futura-medium-italic";
     font-size: 1.1rem;
   }
 

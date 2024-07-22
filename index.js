@@ -89,6 +89,11 @@ function displayNumbers() {
 // Función para cargar la fortuna del día al abrir la página
 document.addEventListener("DOMContentLoaded", displayTodayFortune);
 
+document.addEventListener("DOMContentLoaded", () => {
+  displayTodayFortune();
+  displayNumbers();
+});
+
 // Función para generar la imagen con el texto aleatorio y los números (cargados o generados)
 function generateImage() {
   const language = localStorage.getItem("language") || "en";
@@ -148,7 +153,29 @@ function generateImage() {
         ctx.fillText(number, numbersX, numbersY);
       });
 
-      resolve(); // Resolvemos la promesa después de completar la generación
+      // Crear una nueva imagen para el trébol
+      const clover = new Image();
+      clover.onload = function () {
+        // Ajustar el tamaño del trébol
+        const cloverWidth = 65; // Ajusta el ancho deseado
+        const cloverHeight = 65; // Ajusta el alto deseado
+
+        // Dibujar el trébol en el canvas después de los textos y números
+        const cloverX = canvas.width - cloverWidth - 160; // Ajustar la posición horizontal del trébol
+        const cloverY = canvas.height - cloverHeight - 570; // Ajustar la posición vertical del trébol
+        ctx.drawImage(clover, cloverX, cloverY, cloverWidth, cloverHeight);
+
+        resolve(); // Resolvemos la promesa después de completar la generación
+      };
+
+      // Manejar errores de carga de la imagen del trébol
+      clover.onerror = function () {
+        console.error("Error al cargar la imagen del trébol.");
+        reject("Error al cargar la imagen del trébol.");
+      };
+
+      // Establecer la ruta de la imagen del trébol
+      clover.src = "img/trebol.png";
     };
 
     // Manejar errores de carga de la imagen de fondo
@@ -196,7 +223,7 @@ function displayTodayFortune() {
     // Mostrar un mensaje indicando que se necesita revelar la nueva fortuna del día
     fortuneText.textContent = fortuneMessages.reveal_message;
     fortuneNumbersElement.textContent = ""; // Limpiar números anteriores si es necesario
-    /* hideShareButton();  */// Esconder el botón de compartir si no hay fortuna del día
+    /* hideShareButton();  */ // Esconder el botón de compartir si no hay fortuna del día
     revealMessageElement.style.display = "block";
     fortuneText.style.display = "none";
   }
@@ -389,6 +416,8 @@ function showShareButton() {
   shareButton.style.display = "inline-block";
   viewButton.style.display = "inline-block";
   webShareButton.style.display = "inline-block";
+  // Mostrar el trébol
+  document.querySelector(".trebol").style.display = "inline";
 }
 
 // Función para obtener el nombre del archivo de acuerdo al idioma y la fecha
