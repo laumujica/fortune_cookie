@@ -89,11 +89,6 @@ function displayNumbers() {
 // Función para cargar la fortuna del día al abrir la página
 document.addEventListener("DOMContentLoaded", displayTodayFortune);
 
-document.addEventListener("DOMContentLoaded", () => {
-  displayTodayFortune();
-  displayNumbers();
-});
-
 // Función para generar la imagen con el texto aleatorio y los números (cargados o generados)
 function generateImage() {
   const language = localStorage.getItem("language") || "en";
