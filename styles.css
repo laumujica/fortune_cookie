@@ -246,7 +246,7 @@ body {
 
 #fortune-numbers {
   display: flex;
-  gap: 2rem; /* Ajusta el valor según sea necesario */
+  gap: 1rem; /* Ajusta el valor según sea necesario */
 }
 
 /* Añadir esto a tu archivo CSS */
@@ -274,13 +274,13 @@ display: none;
 button.generate-phrase {
   font-weight: 700;
   padding: 10px;
-  border: 7px solid white;
+  border: 5px solid white;
   background: rgba(255, 255, 255, 0);
   color: white;
   border-radius: 10px;
   transition: 200ms ease-in;
   user-select: none;
-  font-size: 1.2rem;
+  font-size: 1rem;
   cursor: pointer;
   box-sizing: border-box;
 }
@@ -895,8 +895,12 @@ h2 {
   }
 
   #modal-fortune-content {
-    max-width: 18rem;
+    max-width: 21rem;
   }
+
+ #modal-message {
+  font-size: 1rem;
+ }
 
   #modal-image-content {
     max-width: 18rem;
@@ -904,8 +908,8 @@ h2 {
   }
 
   #web-share-button {
-    padding: 5px;
-    font-size: 14px;
+    font-size: 1rem;
+    padding: 10px 32px;
   }
 }
 

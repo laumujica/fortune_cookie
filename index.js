@@ -132,11 +132,13 @@ function generateImage() {
 
       // Obtener los números (cargados o generados)
       const savedNumbers = localStorage.getItem("todayFortuneNumbers");
+      
       const numbersArray = savedNumbers
         ? savedNumbers.split(" ")
         : Array.from(document.querySelectorAll("#fortune-numbers span")).map(
             (span) => span.textContent
           );
+      
 
       // Dibujar los números en la imagen
       const numbersY = canvas.height - 600; // Ajusta la posición vertical de los números
@@ -300,12 +302,12 @@ document.addEventListener("DOMContentLoaded", () => {
   if (savedDate === today) {
     languageSwitch.disabled = true;
     languageSwitch.classList.add("disabled");
-    generateButton.disabled = true;
+    /* generateButton.disabled = true; */
   }
 });
 
-// Función para cargar la fortuna del día al abrir la página
-document.addEventListener("DOMContentLoaded", displayTodayFortune);
+/* // Función para cargar la fortuna del día al abrir la página
+document.addEventListener("DOMContentLoaded", displayTodayFortune); */
 
 // Función para cargar la imagen de fondo según el idioma
 function loadBackgroundImage(language) {
@@ -387,10 +389,10 @@ function translateFortune() {
     fortuneText.textContent = `"${fortuneMessages[index]}"`;
 
     // Mostrar los números aleatorios guardados
-    const savedNumbers = localStorage.getItem("todayFortuneNumbers");
+    /* const savedNumbers = localStorage.getItem("todayFortuneNumbers");
     if (savedNumbers) {
       document.getElementById("fortune-numbers").textContent = savedNumbers;
-    }
+    } */
   }
 }
 
