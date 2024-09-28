@@ -880,8 +880,16 @@ h2 {
     padding-left: 0;
   }
 
+  .music-icon img {
+    position: absolute;
+    top: 1.5rem;
+    left: 1rem;
+    width: 35px; /* Ajusta el tamaño del ícono */
+    height: 35px; /* Ajusta el tamaño del ícono */
+  }
+
   .phrase {
-    margin-top: 2rem;
+    margin-top: 0rem;
     min-height: 5rem;
     min-width: 5rem;
     text-align: center;
@@ -891,7 +899,8 @@ h2 {
   }
 
   .cat > img {
-    width: 10rem;
+    width: 8rem;
+    margin-top: 5rem;
   }
 
   #title-text {
@@ -901,7 +910,7 @@ h2 {
 
   #fortune-text {
     max-width: 700px;
-    padding-bottom: 5rem;
+    padding-bottom: 3rem;
     font-size: 1.2rem;
   }
 
@@ -911,12 +920,16 @@ h2 {
 
   #slogan-mobile {
     display: block;
-    margin-top: -0.5rem;
+    margin-top: -1rem;
     margin-bottom: 2rem;
   }
 
+  #view-button {
+    margin-top: 10px;
+  }
+
   button.generate-phrase {
-    margin-top: 3rem;
+    margin-top: 2rem;
     font-size: 1rem;
     padding: 8px;
     border: 5px solid white;
@@ -969,6 +982,11 @@ h2 {
 #languageSwitch:checked:before {
   font-size: 0.8em; /* Adjust font size for mobile */
 }
+
+.madre {
+  line-height: 1.2rem;
+}
+
 
 @media screen and (min-width: 769px) and (max-width: 1440px) {
   body {
