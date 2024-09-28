@@ -177,6 +177,7 @@ body {
 
 .cat > img {
   width: 200px;
+  margin-bottom: -5px;
 }
 
 .fortune {
@@ -535,6 +536,7 @@ span.close-fortune {
   text-align: center;
   color: black;
   font-size: 0.7rem;
+  line-height: 1.5rem;
 }
 
 .madre a {
