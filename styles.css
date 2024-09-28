@@ -167,6 +167,16 @@ body {
   }
 }
 
+/* Music */
+.music-icon img {
+  position: absolute;
+  top: 1.5rem;
+  left: 4rem;
+  width: 40px; /* Ajusta el tamaño del ícono */
+  height: 40px; /* Ajusta el tamaño del ícono */
+}
+
+
 /* * Intro */
 .intro {
   display: flex;

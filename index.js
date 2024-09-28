@@ -25,6 +25,18 @@ const revealMessageElement = document.getElementById("reveal-message");
 const fortuneNumbersElement = document.getElementById("fortune-numbers");
 const shareImageButton = document.getElementById("share-image-button");
 const webShareButton = document.getElementById("web-share-button");
+const audio = document.getElementById('audio');
+const icon = document.getElementById('play-pause-icon');
+
+icon.addEventListener('click', () => {
+    if (audio.paused) {
+        audio.play();
+        icon.src = 'img/boton-de-pausa.png'; // Cambia a la imagen de pausa
+    } else {
+        audio.pause();
+        icon.src = 'img/boton-de-play.png'; // Cambia de nuevo a la imagen de play
+    }
+});
 
 // Cargar el idioma inicial
 let lang = languageSwitch.checked ? "en" : "es";
