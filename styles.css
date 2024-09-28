@@ -244,7 +244,7 @@ body {
   color: #c7c6c6;
   font-style: italic;
   padding-bottom: 5rem;
-  animation: breathe 3s infinite;
+  animation: breathe 4s infinite;
 }
 
 @keyframes breathe {
@@ -922,6 +922,10 @@ h2 {
     display: block;
     margin-top: -1rem;
     margin-bottom: 2rem;
+  }
+
+  #reveal-message {
+    font-size: 0.9rem;
   }
 
   #view-button {
