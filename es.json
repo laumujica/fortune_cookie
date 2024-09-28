@@ -1,0 +1,13 @@
+{
+    "title": "Fortune Cookie",
+    "slogan": "¿Qué te deparará el destino? Encontrá tu mensaje del día.",
+    "slogan_mobile": "¿Qué te deparará el destino?<br>Encontrá tu mensaje del día.",
+    "reveal_button": "Abrir galleta",
+    "modal_message": "Ya conoces tu fortuna de hoy. ¿Qué harás al respecto? <strong id=\"boldText\">¡Te esperamos mañana! 😃</strong> Que estés muy bien.",
+    "share_button": "Guardar",
+    "view_button": "Compartir",
+    "reveal_message": "~ Respirá profundo antes de avanzar. ~",
+    "web_share_button": "Redes",
+    "background_image": "img/bg-imgES.jpg"
+  }
+  
