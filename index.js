@@ -153,7 +153,7 @@ function generateImage() {
       
 
       // Dibujar los números en la imagen
-      const numbersY = canvas.height - 600; // Ajusta la posición vertical de los números
+      const numbersY = canvas.height - 650; // Ajusta la posición vertical de los números
 
       numbersArray.forEach((number, index) => {
         ctx.font = "40px Futura"; // Ajustar el tamaño de la fuente para los números
@@ -171,7 +171,7 @@ function generateImage() {
 
         // Dibujar el trébol en el canvas después de los textos y números
         const cloverX = canvas.width - cloverWidth - 160; // Ajustar la posición horizontal del trébol
-        const cloverY = canvas.height - cloverHeight - 570; // Ajustar la posición vertical del trébol
+        const cloverY = canvas.height - cloverHeight - 620; // Ajustar la posición vertical del trébol
         ctx.drawImage(clover, cloverX, cloverY, cloverWidth, cloverHeight);
 
         resolve(); // Resolvemos la promesa después de completar la generación
