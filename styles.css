@@ -170,7 +170,7 @@ body {
 /* Music */
 .music-icon img {
   position: absolute;
-  top: 1.5rem;
+  top: 2.5rem;
   left: 4rem;
   width: 40px; /* Ajusta el tamaño del ícono */
   height: 40px; /* Ajusta el tamaño del ícono */
@@ -882,8 +882,8 @@ h2 {
 
   .music-icon img {
     position: absolute;
-    top: 1.5rem;
-    left: 1rem;
+    top: 3rem;
+    left: 3rem;
     width: 35px; /* Ajusta el tamaño del ícono */
     height: 35px; /* Ajusta el tamaño del ícono */
   }
